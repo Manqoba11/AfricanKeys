@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Gates & Construction</title>
+    <link rel="stylesheet" href="st.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">GATE<span>STEEL</span></div>
+        <nav>
+            <a href="#products">Our Gates</a>
+            <a href="#checkout">Place Order</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Quality Gates & Professional Craftsmanship</h1>
+        <p>Select your build structure below and send us your order instantly.</p>
+    </section>
+
+    <div class="container">
+        
+        <section id="products">
+            <h2>Our Custom Work & Products</h2>
+            <div class="product-grid">
+                
+                <div class="product-card">
+                    <img src="gate1.jpg.jpg" alt="Standard Frame Gate Setup" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Standard Frame Gate Setup (Gate 1)</h3>
+                        <p class="product-price">R 1,000.00</p>
+                        <button class="btn-add" onclick="addToCart('Standard Frame Gate Setup (Gate 1)', 1000.00)">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="gate2.jpg.jpg" alt="Premium Dome Structural Frame" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Premium Dome Structural Frame (Gate 2)</h3>
+                        <p class="product-price">R 2,000.00</p>
+                        <button class="btn-add" onclick="addToCart('Premium Dome Structural Frame (Gate 2)', 2000.00)">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="gate3.jpg.jpg" alt="Heavy Duty Reinforced Dome Structure" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Reinforced Dome Framework (Gate 3)</h3>
+                        <p class="product-price">R 2,899.00</p>
+                        <button class="btn-add" onclick="addToCart('Reinforced Dome Framework (Gate 3)', 2899.00)">Add to Order</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="checkout">
+            <h2>Complete Your Order</h2>
+            <div class="checkout-section">
+                
+                <div class="cart-summary">
+                    <h3>Your Selected Items</h3>
+                    <div id="cart-items-container">
+                        <p style="color: #6b7280; padding: 20px 0;">Your cart is empty. Add products above.</p>
+                    </div>
+                    <div class="cart-total">Total: R <span id="cart-total-val">0.00</span></div>
+                </div>
+
+                <form action="https://formspree.io/f/your-formspree-id" method="POST">
+                    
+                    <input type="hidden" name="Order Details" id="hidden-cart-input">
+                    <input type="hidden" name="Total Price" id="hidden-total-input">
+
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="Customer Name" required placeholder="e.g. Sipho Nkosi">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="Customer Email" required placeholder="e.g. sipho@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="Customer Phone" required placeholder="e.g. 082 123 4567">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Delivery / Installation Address & Notes</label>
+                        <textarea id="notes" name="Order Notes" placeholder="Enter your full address or specific site requirements here..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Submit Order Request</button>
+                </form>
+
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Gate Steel Construction. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            let existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name: name, price: price, quantity: 1 });
+            }
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const container = document.getElementById('cart-items-container');
+            const totalValSpan = document.getElementById('cart-total-val');
+            const hiddenCartInput = document.getElementById('hidden-cart-input');
+            const hiddenTotalInput = document.getElementById('hidden-total-input');
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="color: #6b7280; padding: 20px 0;">Your cart is empty. Add products above.</p>';
+                totalValSpan.innerText = '0.00';
+                hiddenCartInput.value = '';
+                hiddenTotalInput.value = '';
+                return;
+            }
+
+            container.innerHTML = '';
+            let total = 0;
+            let orderSummaryText = '';
+
+            cart.forEach(item => {
+                let itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                let itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <span>${item.name} (x${item.quantity})</span>
+                    <span>R ${itemTotal.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                `;
+                container.appendChild(itemElement);
+
+                orderSummaryText += `${item.name} x${item.quantity} (R ${itemTotal.toFixed(2)}); `;
+            });
+
+            totalValSpan.innerText = total.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            
+            hiddenCartInput.value = orderSummaryText;
+            hiddenTotalInput.value = 'R ' + total.toFixed(2);
+        }
+    </script>
+</body>
+</html>
