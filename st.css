@@ -675,3 +675,309 @@ footer {
     background: red;
     color: white;
 }
+
+.whatsapp-order-btn {
+    display: inline-block;
+    background-color: #86c49c;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.whatsapp-order-btn:hover {
+    background-color: #128C7E;
+}
+.cart-btn {
+    display: inline-block;
+    background-color: #f0ad4e;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 10px;
+
+   /** padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;**/
+}
+
+/* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header */
+header {
+    background-color: #1f1f1f;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+nav ul li a:hover {
+    color: #ffcc00;
+}
+
+/* Page title */
+h1, h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Cart list */
+#cartItems {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0;
+    list-style: none;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#cartItems li {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+#cartItems li:last-child {
+    border-bottom: none;
+}
+
+/* Checkout form */
+#checkoutForm {
+    max-width: 400px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+#checkoutForm input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Button */
+#checkoutForm button {
+    width: 95%;
+    padding: 10px;
+    background-color: #1f1f1f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#checkoutForm button:hover {
+    background-color: #ffcc00;
+    color: black;
+}
+
+/* PAGE */
+body {
+    background: #f4f6f9;
+    font-family: Arial, sans-serif;
+}
+
+    /* ============================
+           CART PAGE SPECIFIC STYLES
+        ============================ */
+
+        .cart-page {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .cart-page-title {
+            text-align: center;
+            font-size: 36px;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .cart-page-subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 40px;
+            font-size: 15px;
+        }
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            align-items: start;
+        } 
+
+    /** trying new Style for cart page */
+
+
+    
+    /** trying new Style for cart page */
+   
+
+/**CART LAYOUT  MAIN STRUCTURE*/
+.cart-page {
+    padding: 30px;
+}
+
+.cart-page-title {
+    margin-bottom: 5px;
+}
+
+.cart-page-subtitle {
+    color: gray;
+    margin-bottom: 20px;
+}
+
+.cart-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+/**CART ITEMS LEFT SIDE*/
+#cartItems {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+#cartItems li {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+/** SIDE BOARD SUMMARY AND CHECKOUT*/
+.cart-sidebar {
+    width: 320px;
+}
+
+.order-summary,
+.checkout-form {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.summary-row,
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+}
+
+.summary-total {
+    font-weight: bold;
+    font-size: 18px;
+}
+/**FORM STYLES*/
+.form-group {
+    margin-bottom: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+}
+
+/** BUTTONS*/
+button {
+    width: 100%;
+    padding: 10px;
+    background: var(--blue);
+    color: rgb(13, 13, 14);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #095f94;
+}
+
+.whatsapp-checkout {
+    background: #25D366;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: green;
+    text-decoration: none;
+}
+/**LOADER STYLES*/
+.loader_load-wrapper {
+    position: relative;
+    height: 150px;
+    width: 100%;
+}
+
+.loader_loader {
+    animation: spin 0.8s linear infinite;
+    border-radius: 50%;
+    border: 3px solid rgba(0,0,0,0.2);
+    border-left: 3px solid var(--blue);
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0b79bf;
+    letter-spacing: 0.5px;
+}

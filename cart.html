@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Keys Of Africa</title>
+    <link rel="stylesheet" href="st.css">
+    
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Keys Of Africa</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="Ts&Cs.html">Terms & Conditions</a></li>
+                <li><a href="cart.html">🛒 Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="cart-page">
+
+        <h1 class="cart-page-title">🛒 Your Cart</h1>
+        <p class="cart-page-subtitle">Review your selected products before placing your order</p>
+
+        <div class="cart-layout">
+
+            <!-- LEFT: Cart Items -->
+            <div>
+                <ul id="cartItems">
+                    <!-- Items loaded by cart.js -->
+                     
+                </ul>
+            </div>
+
+            <!-- RIGHT: Summary + Checkout -->
+            <div class="cart-sidebar">
+
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h2>📋 Order Summary</h2>
+                    <div class="summary-row">
+                        <span>Items</span>
+                        <span id="itemCount">0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery</span>
+                        <span>Contact us for quote</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span id="cartTotal">R0.00</span>
+                    </div>
+                </div>
+
+                <!-- Checkout Form -->
+                <div class="checkout-form">
+                    <h2>📦 Your Details</h2>
+
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="e.g. John Dlamini" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="e.g. john@gmail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="e.g. 063 783 6366" required>
+                    </div>
+
+                    <button type="button" id="checkoutBtn" onclick="placeOrder()">
+                        ✅ Place Order
+                    </button>
+
+                    <a id="whatsappCheckout" href="#" class="whatsapp-checkout">
+                        💬 Order via WhatsApp
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Keys Of Africa. All Rights Reserved.</p>
+    </footer>
+    <div class="loader_load-wrapper">
+    <div class="loader_loader"></div>
+</div>
+
+    <script src="cart.js"></script>
+
+
+</body>
+</html>
