@@ -647,3 +647,31 @@ footer {
 }
 
 
+
+.tcs-acceptance {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.tcs-buttons {
+    margin-top: 20px;
+}
+
+.tcs-buttons button {
+    padding: 12px 25px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#acceptBtn {
+    background: green;
+    color: white;
+}
+
+#declineBtn {
+    background: red;
+    color: white;
+}
