@@ -39,7 +39,8 @@
     <form>
 
         <label for="name">Full Name</label>
-        <input type="text" id="name" required>
+        <input type="text" id="name" required 
+             placeholder="John Doe">
 
         <label for="email">Email Address</label>
 
@@ -49,11 +50,12 @@
                 oninput="this.setCustomValidity('')"
                 oninvalid="this.setCustomValidity('Please enter a valid Gmail address (@gmail.com)')">
         
-                <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" required pattern="[0-9]{10}" title="Please enter a 10-digit phone number">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" required pattern="[0-9]{10}" 
+                 title="Please enter a 10-digit phone number">
 
         <label for="subject">Subject</label>
-        <input type="text" id="subject">
+        <input type="text" id="subject" placeholder="Your subject here" required>
 
         <label for="message">Message</label>
         <textarea id="message" rows="5" required></textarea>
