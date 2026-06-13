@@ -96,7 +96,7 @@ function updateWhatsApp() {
     let btn = document.getElementById("whatsappCheckout");
 
     if (btn) {
-        btn.href = `https://wa.me/27637836366?text=${encodeURIComponent(msg)}`;
+        btn.href = `https://wa.me/27833467574?text=${encodeURIComponent(msg)}`;
     }
 }
 
