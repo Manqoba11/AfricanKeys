@@ -161,4 +161,4 @@ window.onload = function () {
 
     updateCartUI();
     updateWhatsApp();
-};
+}; 
