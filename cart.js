@@ -107,3 +107,19 @@ window.onload = function () {
     updateCartUI();
     updateWhatsApp();
 };
+function attachCartToForm() {
+    const cartInput = document.getElementById("cartData");
+
+    if (cartInput) {
+        cartInput.value = cart
+    .map(i => `${i.name} - R${i.price}`)
+    .join("\n");
+    }
+}
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", () => {
+        attachCartToForm();
+    });
+});

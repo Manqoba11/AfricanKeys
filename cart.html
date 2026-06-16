@@ -64,25 +64,28 @@
 
                 <!-- Checkout Form -->
                 <form action="https://formspree.io/f/xojzpppk" method="POST">
+                    <input type="hidden" name="cartData" id="cartData">
             
                 <div class="checkout-form">
                     <h2>📦 Your Details</h2>
                     <div class="form-group">
                         <label for="name">Full Name</label>
-                        <input type="text" id="name" placeholder="e.g. John Dlamini" required>
+                        <input type="text" id="name"  name="name" placeholder="e.g. John Dlamini" required>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="e.g. john@gmail.com" required>
+                        <input type="email" id="email" name="email" placeholder="e.g. john@gmail.com" required>
                     </div>
 
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" placeholder="e.g. 063 783 6366" required>
+                        <input type="tel" id="phone" name="phone" placeholder="e.g. 063 783 6366" required>
                     </div>
 
-                    <input type="submit" value="Place Order" >
+                    <button type="submit">
+                          ✅ Place Order
+                    </button>
 
                     <a id="whatsappCheckout" href="#" class="whatsapp-checkout">
                         💬 Order via WhatsApp
