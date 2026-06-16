@@ -1,17 +1,24 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 // ============================
+// SAVE CART
+// ============================
+function saveCart() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+// ============================
 // ADD TO CART
 // ============================
-function addToCart(name, image,price ) {
-    price = Number(price); // 🔥 convert to number
-             cart.push({ name, image, price });
+function addToCart(name, image, price) {
+    price = Number(price);
+
+    cart.push({ name, image, price });
 
     saveCart();
     updateCartUI();
     updateWhatsApp();
 }
-
 
 // ============================
 // REMOVE ITEM
@@ -25,18 +32,10 @@ function removeFromCart(index) {
 }
 
 // ============================
-// SAVE CART
-// ============================
-function saveCart() {
-    localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-// ============================
 // UPDATE UI
 // ============================
 function updateCartUI() {
-
-    let cartItems = document.getElementById("cartItems");
+    const cartItems = document.getElementById("cartItems");
     if (!cartItems) return;
 
     cartItems.innerHTML = "";
@@ -44,31 +43,29 @@ function updateCartUI() {
     let total = 0;
 
     cart.forEach((item, index) => {
-
         total += Number(item.price);
 
-        let li = document.createElement("li");
+        const li = document.createElement("li");
         li.classList.add("cart-item");
 
-        let left = document.createElement("div");
+        const left = document.createElement("div");
         left.classList.add("cart-left");
 
-        let right = document.createElement("div");
+        const right = document.createElement("div");
         right.classList.add("cart-right");
 
         if (item.image) {
-            let img = document.createElement("img");
+            const img = document.createElement("img");
             img.src = item.image;
             img.style.width = "80px";
             img.style.height = "80px";
-            left.appendChild(img); 
+            left.appendChild(img);
         }
-        
 
-        let span = document.createElement("span");
-        span.textContent = `${item.name} - R${Number(item.price).toFixed(2)}`; // 🔥 convert to number and format
+        const span = document.createElement("span");
+        span.textContent = `${item.name} - R${Number(item.price).toFixed(2)}`;
 
-        let removeBtn = document.createElement("button");
+        const removeBtn = document.createElement("button");
         removeBtn.textContent = "Remove";
         removeBtn.onclick = () => removeFromCart(index);
 
@@ -81,45 +78,87 @@ function updateCartUI() {
         cartItems.appendChild(li);
     });
 
-    document.getElementById("itemCount").innerText = cart.length;
-    document.getElementById("cartTotal").innerText = "R" + Number(total).toFixed(2);
+    const itemCount = document.getElementById("itemCount");
+    const cartTotal = document.getElementById("cartTotal");
+
+    if (itemCount) itemCount.innerText = cart.length;
+    if (cartTotal) cartTotal.innerText = "R" + total.toFixed(2);
 }
 
 // ============================
-// WHATSAPP LINK
+// WHATSAPP
 // ============================
 function updateWhatsApp() {
-    let items = cart.map(i => i.name).join(", ");
+    const btn = document.getElementById("whatsappCheckout");
+    if (!btn) return;
 
-    let msg = `Hi Keys Of Africa! I would like to order: ${items}`;
+    let msg = "🛒 *Keys Of Africa Order*%0A%0A";
 
-    let btn = document.getElementById("whatsappCheckout");
+    cart.forEach(item => {
+        msg += `• ${item.name} - R${item.price}%0A`;
+    });
 
-    if (btn) {
-        btn.href = `https://wa.me/27833467574?text=${encodeURIComponent(msg)}`;
-    }
+    const total = cart.reduce((sum, i) => sum + Number(i.price), 0);
+
+    msg += `%0A💰 Total: R${total}`;
+
+    btn.href = `https://wa.me/27833467574?text=${msg}`;
 }
 
 // ============================
-// LOAD ON PAGE START
+// BUILD ORDER OBJECT FOR FORM
 // ============================
-window.onload = function () {
-    updateCartUI();
-    updateWhatsApp();
-};
-function attachCartToForm() {
-    const cartInput = document.getElementById("cartData");
-
-    if (cartInput) {
-        cartInput.value = cart
-    .map(i => `${i.name} - R${i.price}`)
-    .join("\n");
-    }
+function buildOrder() {
+    return {
+        customer: {
+            name: document.getElementById("name")?.value || "",
+            email: document.getElementById("email")?.value || "",
+            phone: document.getElementById("phone")?.value || ""
+        },
+        items: cart,
+        total: cart.reduce((sum, i) => sum + Number(i.price), 0),
+        date: new Date().toISOString()
+    };
 }
+
+// ============================
+// ATTACH TO FORM BEFORE SUBMIT
+// ============================
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
 
-    form.addEventListener("submit", () => {
-        attachCartToForm();
+    if (!form) return;
+
+    form.addEventListener("submit", (e) => {
+
+        if (cart.length === 0) {
+            e.preventDefault();
+            alert("Your cart is empty!");
+            return;
+        }
+
+        // create hidden input if missing
+        let hidden = document.getElementById("order");
+        if (!hidden) {
+            hidden = document.createElement("input");
+            hidden.type = "hidden";
+            hidden.name = "order";
+            hidden.id = "order";
+            form.appendChild(hidden);
+        }
+
+        hidden.value = JSON.stringify(buildOrder(), null, 2);
+
+        saveCart();
     });
 });
+
+// ============================
+// INIT
+// ============================
+window.onload = function () {
+    if (!Array.isArray(cart)) cart = [];
+
+    updateCartUI();
+    updateWhatsApp();
+};
