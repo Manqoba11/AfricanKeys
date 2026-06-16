@@ -981,3 +981,46 @@ button:hover {
     color: #0b79bf;
     letter-spacing: 0.5px;
 }
+
+/* hide menu button on desktop */
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* mobile view */
+@media (max-width: 768px) {
+
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 15px;
+    }
+
+    nav {
+        display: none;
+        width: 100%;
+        background: #1f1f1f;
+        position: absolute;
+        top: 60px;
+        left: 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul li {
+        padding: 10px 0;
+    }
+
+    nav.active {
+        display: block;
+    }
+}

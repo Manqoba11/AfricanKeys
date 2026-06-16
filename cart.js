@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             alert("Your cart is empty!");
             return;
-        }
+        } 
 
         // create hidden input if missing
         let hidden = document.getElementById("order");
@@ -162,3 +162,7 @@ window.onload = function () {
     updateCartUI();
     updateWhatsApp();
 };
+function toggleMenu() {
+    const nav = document.getElementById("navMenu");
+    nav.classList.toggle("active");
+}
