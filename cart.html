@@ -63,9 +63,10 @@
                 </div>
 
                 <!-- Checkout Form -->
+                <form action="https://formspree.io/f/xojzpppk" method="POST">
+            
                 <div class="checkout-form">
                     <h2>📦 Your Details</h2>
-
                     <div class="form-group">
                         <label for="name">Full Name</label>
                         <input type="text" id="name" placeholder="e.g. John Dlamini" required>
@@ -81,15 +82,13 @@
                         <input type="tel" id="phone" placeholder="e.g. 063 783 6366" required>
                     </div>
 
-                    <button type="button" id="checkoutBtn" onclick="placeOrder()">
-                        ✅ Place Order
-                    </button>
+                    <input type="submit" value="Place Order" class="btn btn-primary">
 
                     <a id="whatsappCheckout" href="#" class="whatsapp-checkout">
                         💬 Order via WhatsApp
                     </a>
                 </div>
-
+                </form>
             </div>
         </div>
     </div>
