@@ -981,3 +981,12 @@ button:hover {
     color: #0b79bf;
     letter-spacing: 0.5px;
 }  
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+

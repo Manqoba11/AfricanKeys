@@ -162,3 +162,13 @@ window.onload = function () {
     updateCartUI();
     updateWhatsApp();
 }; 
+function toggleMenu() {
+    const nav = document.getElementById("navMenu");
+
+    if (!nav) {
+        console.log("navMenu not found");
+        return;
+    }
+
+    nav.classList.toggle("active");
+}
