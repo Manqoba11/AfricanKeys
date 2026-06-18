@@ -207,3 +207,86 @@ function clearCart(){
     updateCartUI();
     updateWhatsApp();
 }
+function signup() {
+    localStorage.setItem("loggedIn", "true");
+    window.location.href = "products.html";
+}
+function login() {
+    localStorage.setItem("loggedIn", "true");
+    window.location.href = "products.html";
+
+if(localStorage.getItem("loggedIn") !== "true")
+    alert("Please login first");
+    window.location.href = "login.html";
+
+    if(localStorage.getItem("acceptedTerms") === "true"){
+    window.location.href = "products.html";
+}else{
+    window.location.href = "Ts&Cs.html";
+}
+}
+function logout() {
+    localStorage.removeItem("loggedIn");
+    window.location.href = "index.html";
+}
+function addToCart(name, image, price) {
+
+    if(localStorage.getItem("acceptedTerms") !== "true"){
+
+        alert("You must accept the Terms & Conditions first.");
+
+        window.location.href = "Ts&Cs.html";
+
+        return;
+    }
+
+    price = Number(price);
+
+    cart.push({ name, image, price });
+
+    saveCart();
+
+    updateCartUI();
+    updateWhatsApp();
+}
+
+function addToCart(name, image, price) {
+
+    const loggedIn = localStorage.getItem("loggedIn");
+    const accepted = localStorage.getItem("termsAccepted");
+
+    if (!loggedIn) {
+        alert("Please login first.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    if (!accepted) {
+        alert("You must accept the Terms & Conditions first.");
+        window.location.href = "Ts&Cs.html";
+        return;
+    }
+
+    price = Number(price);
+
+    cart.push({
+        name,
+        image,
+        price
+    });
+
+    saveCart();
+    updateCartUI();
+    updateWhatsApp();
+
+    alert("Added to cart!");
+}
+function logout(){
+
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("termsAccepted");
+
+    alert("Logged out successfully.");
+
+    window.location.href = "login.html";
+}
