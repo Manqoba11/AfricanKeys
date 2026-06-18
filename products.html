@@ -20,10 +20,17 @@
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
                 <li><a href="Ts&Cs.html">Terms & Conditions</a></li>
-                <li><a href="cart.html">🛒 Cart</a></li>
+                <li><a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a></li>
             </ul>
         </nav>
     </header>
+    <div class="products-page">
+            <input
+                type="text"
+                id="search"
+                placeholder="Search products..."
+                onkeyup="searchProducts()">
+        </div>
     
    <section class="products-preview">
         <div class="products-header">
@@ -215,6 +222,10 @@
     <footer>
         <p>&copy; 2025 Keys Of Africa. All Rights Reserved.</p>
     </footer>
+    <a href="https://wa.me/27637836366"
+class="floating-whatsapp">
+💬
+</a>
 
 </body>
 </html>

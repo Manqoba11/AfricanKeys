@@ -14,8 +14,8 @@ function addToCart(name, image, price) {
     price = Number(price);
 
     cart.push({ name, image, price });
-
     saveCart();
+    alert(name + " added to cart!");
     updateCartUI();
     updateWhatsApp();
 }
@@ -160,6 +160,7 @@ window.onload = function () {
     if (!Array.isArray(cart)) cart = [];
 
     updateCartUI();
+    updateCartCount();
     updateWhatsApp();
 }; 
 function toggleMenu() {
@@ -171,4 +172,38 @@ function toggleMenu() {
     }
 
     nav.classList.toggle("active");
+}
+function updateCartCount() {
+    const count = document.getElementById("cartCount");
+
+    if(count){
+        count.innerText = cart.length;
+    }
+}
+function searchProducts() {
+
+    let input =
+    document.getElementById("search").value.toLowerCase();
+
+    let cards =
+    document.querySelectorAll(".product-images div");
+
+    cards.forEach(card => {
+
+        let title =
+        card.querySelector("h5").innerText.toLowerCase();
+
+        card.style.display =
+        title.includes(input)
+        ? "block"
+        : "none";
+    });
+}
+function clearCart(){
+
+    cart = [];
+
+    saveCart();
+    updateCartUI();
+    updateWhatsApp();
 }

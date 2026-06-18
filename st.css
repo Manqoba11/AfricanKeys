@@ -989,4 +989,47 @@ header {
     align-items: center;
     padding: 20px;
 }
+.product-images div{
+    transition: 0.3s;
+}
 
+.product-images div:hover{
+    transform: translateY(-8px);
+}
+.cart-btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    background:#d4af37;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.cart-btn:hover{
+    background:#b9911e;
+}
+.floating-whatsapp{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:60px;
+    height:60px;
+    background:#25D366;
+    color:white;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    font-size:30px;
+    z-index:999;
+}
+.products-page {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+}
