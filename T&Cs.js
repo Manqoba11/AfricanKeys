@@ -19,4 +19,4 @@ function acceptTerms() {
     alert("Terms & Conditions accepted");
 
     window.location.href = "cart.html";
-}
+} 

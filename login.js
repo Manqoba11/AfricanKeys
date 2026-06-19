@@ -15,7 +15,7 @@ onAuthStateChanged(auth, (user) => {
 
     }
 
-});
+}); 
 
 signInWithEmailAndPassword(auth, email, password)
 .then((userCredential) => {

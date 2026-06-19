@@ -530,3 +530,4 @@ window.onload = function () {
     updateCartCount();
     updateWhatsApp();
 };
+ 

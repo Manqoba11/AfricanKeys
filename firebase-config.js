@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebas
 import {
   getAuth
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
+ 
 const firebaseConfig = {
   apiKey: "AIzaSyByP9j3KRfs5BxbrfO5mQzR9PJQUp4Qjho",
   authDomain: "keys-of-africa.firebaseapp.com",
