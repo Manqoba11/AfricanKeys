@@ -1,20 +1,46 @@
+
 import { auth } from "./firebase-config.js";
 
 import {
-  createUserWithEmailAndPassword
+    createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-window.signup = function () {
+const form = document.getElementById("signupForm");
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+form.addEventListener("submit", function(e){
 
-    createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            alert("Account created successfully!");
-            window.location.href = "login.html";
-        })
-        .catch((error) => {
-            alert(error.message);
-        });
-};
+    e.preventDefault();
+
+    const password =
+    document.getElementById("password").value;
+
+    const confirmPassword =
+    document.getElementById("confirmPassword").value;
+
+    if(password !== confirmPassword){
+        alert("Passwords do not match!");
+        return;
+    }
+
+    const email =
+    document.getElementById("email").value;
+
+    createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+    )
+    .then(() => {
+
+        alert("Account created successfully!");
+
+        window.location.href = "login.html";
+
+    })
+    .catch((error) => {
+
+        alert(error.message);
+
+    });
+
+});

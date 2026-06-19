@@ -1,24 +1,34 @@
-import { auth } from "./firebase-config.js";
 
 import {
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-window.login = function () {
+onAuthStateChanged(auth, (user) => {
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    if(user){
 
-    signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
+        localStorage.setItem(
+            "loggedIn",
+            "true"
+        );
 
-            localStorage.setItem("loggedIn", "true");
+    }
 
-            alert("Login successful!");
+});
 
-            window.location.href = "Ts&Cs.html";
-        })
-        .catch((error) => {
-            alert("Incorrect email or password");
-        });
-};
+signInWithEmailAndPassword(auth, email, password)
+.then((userCredential) => {
+
+    localStorage.setItem("loggedIn", "true");
+
+    localStorage.setItem(
+        "userEmail",
+        userCredential.user.email
+    );
+
+    alert("Login successful!");
+
+    window.location.href = "Ts&Cs.html";
+
+})

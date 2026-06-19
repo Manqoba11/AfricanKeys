@@ -1,25 +1,22 @@
-
 function acceptTerms() {
 
-    localStorage.setItem("termsAccepted", "true");
+    localStorage.setItem("acceptedTCs", "true");
 
     document.getElementById('tcs-message').textContent =
     '✅ Thank you! You have accepted the Terms & Conditions.';
 
-    document.getElementById('tcs-message').style.color = 'green';
+    document.getElementById('tcs-message').style.color =
+    'green';
 
     setTimeout(() => {
         window.location.href = "products.html";
     }, 2000);
 }
-}
-function declineTerms() {
+function acceptTerms() {
 
-    localStorage.removeItem("acceptedTerms");
+    localStorage.setItem("acceptedTCs","true");
 
-    document.getElementById('tcs-message').textContent =
-    '❌ You must accept the Terms & Conditions to continue.';
+    alert("Terms & Conditions accepted");
 
-    document.getElementById('tcs-message').style.color =
-    'red';
+    window.location.href = "cart.html";
 }

@@ -8,6 +8,30 @@
 </head>
 <body>
     <script src="cart.js"></script>
+<script src="T&Cs.js"></script>
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyByP9j3KRfs5BxbrfO5mQzR9PJQUp4Qjho",
+    authDomain: "keys-of-africa.firebaseapp.com",
+    projectId: "keys-of-africa",
+    storageBucket: "keys-of-africa.firebasestorage.app",
+    messagingSenderId: "295412124500",
+    appId: "1:295412124500:web:db00efdbe5319869b416c1",
+    measurementId: "G-T7NE0XE782"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
     <header>
         <div class="logo">
             <h1>Keys Of Africa</h1>
@@ -85,18 +109,13 @@
         }
 
         function acceptTerms() {
-            document.getElementById('tcs-message').textContent = '✅ Thank you! You have accepted the Terms & Conditions.';
-            document.getElementById('tcs-message').style.color = 'green';
-            // Redirect to home after 2 seconds
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 2000);
-        }
 
-        function declineTerms() {
-            document.getElementById('tcs-message').textContent = '❌ You have declined the Terms & Conditions.';
-            document.getElementById('tcs-message').style.color = 'red';
-        }
+    localStorage.setItem("acceptedTCs","true");
+
+    alert("Terms & Conditions accepted");
+
+    window.location.href = "cart.html";
+}
     </script>
 
 <a href="https://wa.me/27637836366"
