@@ -1,5 +1,5 @@
 // ================================================
-// Keys Of Africa — cart.js  (fully fixed version)
+// Keys Of Africa — cart.js
 // ================================================
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -9,7 +9,7 @@ function saveCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// ── Add to cart (NO T&Cs gate) ───────────────────
+// ── Add to cart (NO login / T&Cs gate) ───────────
 function addToCart(name, image, price) {
     cart.push({ name, image, price: Number(price) });
     saveCart();
@@ -129,26 +129,155 @@ function buildOrder() {
     };
 }
 
-// ── Cart form submit ──────────────────────────────
+// ═══════════════════════════════════════════════════
+//  AUTH  (Firebase localStorage bridge)
+// ═══════════════════════════════════════════════════
+
+function getCurrentUser() {
+    const loggedIn = localStorage.getItem("loggedIn") === "true";
+    if (loggedIn) {
+        return {
+            name:  localStorage.getItem("userName")  || "Customer",
+            email: localStorage.getItem("userEmail") || ""
+        };
+    }
+    return null;
+}
+
+// Per-user T&Cs acceptance key
+function getTCsKey() {
+    const user = getCurrentUser();
+    if (!user || !user.email) return null;
+    return "tcsAccepted_" + user.email;
+}
+
+function hasAcceptedTCs() {
+    const key = getTCsKey();
+    if (!key) return false;
+    return localStorage.getItem(key) === "true";
+}
+
+// Show/hide nav links based on login state
+function updateNavAuth() {
+    const user       = getCurrentUser();
+    const loginEl    = document.getElementById("nav-login");
+    const signupEl   = document.getElementById("nav-signup");
+    const logoutEl   = document.getElementById("nav-logout");
+    const greetEl    = document.getElementById("nav-greeting");
+
+    if (user) {
+        if (loginEl)  loginEl.style.display  = "none";
+        if (signupEl) signupEl.style.display  = "none";
+        if (logoutEl) logoutEl.style.display  = "list-item";
+        if (greetEl)  greetEl.textContent     = "Hi, " + user.name + "!";
+    } else {
+        if (loginEl)  loginEl.style.display  = "list-item";
+        if (signupEl) signupEl.style.display  = "list-item";
+        if (logoutEl) logoutEl.style.display  = "none";
+        if (greetEl)  greetEl.textContent     = "";
+    }
+}
+
+function handleLogout() {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
+    window.location.href = "index.html";
+}
+
+// ── T&Cs functions (used on Ts&Cs.html) ──────────
+function toggleButtons() {
+    const cb  = document.getElementById("tcCheckbox");
+    const btn = document.getElementById("acceptBtn");
+    if (btn) btn.disabled = !cb.checked;
+}
+
+function acceptTerms() {
+    const key = getTCsKey();
+    if (key) {
+        localStorage.setItem(key, "true");
+    }
+    const m = document.getElementById("tcs-message");
+    if (m) {
+        m.textContent = "✅ Thank you! You have accepted the Terms & Conditions.";
+        m.style.color = "#16a34a";
+    }
+    setTimeout(() => { window.location.href = "cart.html"; }, 1800);
+}
+
+function declineTerms() {
+    const key = getTCsKey();
+    if (key) localStorage.removeItem(key);
+    const m = document.getElementById("tcs-message");
+    if (m) {
+        m.textContent = "❌ You have declined the Terms & Conditions.";
+        m.style.color = "#dc2626";
+    }
+}
+
+// ── Cart page submit logic ────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("form");
+
+    // Show login/T&Cs status banner on cart page
+    const cartPage = document.querySelector(".cart-page");
+    if (cartPage) {
+        const user = getCurrentUser();
+
+        if (!user) {
+            // Not logged in — show banner, disable submit buttons
+            const banner = document.createElement("div");
+            banner.style.cssText = "background:#fff7e6;border:1.5px solid #d4af37;border-radius:8px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;";
+            banner.innerHTML = `
+                <span style="color:#92600a;font-size:14px;font-weight:600;">
+                    ⚠️ You must be logged in to place an order. You can still add items to your cart.
+                </span>
+                <a href="login.html" style="background:#d4af37;color:white;padding:8px 18px;border-radius:6px;font-weight:bold;font-size:13px;text-decoration:none;">
+                    Login Now →
+                </a>`;
+            cartPage.insertBefore(banner, cartPage.firstChild);
+            disableCheckout();
+        } else if (!hasAcceptedTCs()) {
+            // Logged in but T&Cs not accepted — show banner
+            const banner = document.createElement("div");
+            banner.style.cssText = "background:#f0fdf4;border:1.5px solid #22c55e;border-radius:8px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;";
+            banner.innerHTML = `
+                <span style="color:#15803d;font-size:14px;font-weight:600;">
+                    📋 Please accept our Terms & Conditions before placing an order.
+                </span>
+                <a href="Ts&Cs.html" style="background:#22c55e;color:white;padding:8px 18px;border-radius:6px;font-weight:bold;font-size:13px;text-decoration:none;">
+                    View &amp; Accept T&amp;Cs →
+                </a>`;
+            cartPage.insertBefore(banner, cartPage.firstChild);
+            disableCheckout();
+        }
+    }
+
+    // Form submit handler
+    const form = document.getElementById("checkoutForm");
     if (!form) return;
+
     form.addEventListener("submit", e => {
         // 1. Must be logged in
         if (!getCurrentUser()) {
             e.preventDefault();
             showToast("⚠️ Please log in before placing an order.");
-            setTimeout(() => {
-                window.location.href = "login.html";
-            }, 1800);
+            setTimeout(() => { window.location.href = "login.html"; }, 1800);
             return;
         }
-        // 2. Cart must not be empty
+        // 2. Must have accepted T&Cs
+        if (!hasAcceptedTCs()) {
+            e.preventDefault();
+            showToast("📋 Please accept the Terms & Conditions first.");
+            setTimeout(() => { window.location.href = "Ts&Cs.html"; }, 1800);
+            return;
+        }
+        // 3. Cart must not be empty
         if (cart.length === 0) {
             e.preventDefault();
             showToast("Your cart is empty! Add products first.");
             return;
         }
+        // Attach order data
         let hidden = document.getElementById("order") || (() => {
             const h = document.createElement("input");
             h.type = "hidden"; h.name = "order"; h.id = "order";
@@ -157,7 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
         hidden.value = JSON.stringify(buildOrder(), null, 2);
     });
 
-    // Also block WhatsApp checkout if not logged in
+    // WhatsApp button — same gates
     const waBtn = document.getElementById("whatsappCheckout");
     if (waBtn) {
         waBtn.addEventListener("click", e => {
@@ -165,25 +294,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 e.preventDefault();
                 showToast("⚠️ Please log in before placing an order.");
                 setTimeout(() => { window.location.href = "login.html"; }, 1800);
+                return;
+            }
+            if (!hasAcceptedTCs()) {
+                e.preventDefault();
+                showToast("📋 Please accept the Terms & Conditions first.");
+                setTimeout(() => { window.location.href = "Ts&Cs.html"; }, 1800);
             }
         });
     }
-
-    // Show login prompt banner on cart page if not logged in
-    const cartPage = document.querySelector(".cart-page");
-    if (cartPage && !getCurrentUser()) {
-        const banner = document.createElement("div");
-        banner.style.cssText = "background:#fff7e6;border:1.5px solid #d4af37;border-radius:8px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;";
-        banner.innerHTML = `
-            <span style="color:#92600a;font-size:14px;font-weight:600;">
-                ⚠️ You must be logged in to place an order.
-            </span>
-            <a href="login.html" style="background:#d4af37;color:white;padding:8px 18px;border-radius:6px;font-weight:bold;font-size:13px;text-decoration:none;">
-                Login Now →
-            </a>`;
-        cartPage.insertBefore(banner, cartPage.firstChild);
-    }
 });
+
+// Visually disable submit buttons when not allowed
+function disableCheckout() {
+    const submitBtn = document.querySelector("#checkoutForm button[type=submit]");
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = "0.5";
+        submitBtn.style.cursor = "not-allowed";
+        submitBtn.title = "Login and accept T&Cs to place an order";
+    }
+    const waBtn = document.getElementById("whatsappCheckout");
+    if (waBtn) {
+        waBtn.style.opacity = "0.5";
+        waBtn.style.pointerEvents = "none";
+        waBtn.title = "Login and accept T&Cs to place an order";
+    }
+}
 
 // ── Mobile nav toggle ─────────────────────────────
 function toggleMenu() {
@@ -217,119 +354,6 @@ function showToast(msg) {
     t._timer = setTimeout(() => { t.style.opacity = "0"; }, 3000);
 }
 
-// ── T&Cs page buttons ─────────────────────────────
-function toggleButtons() {
-    const cb = document.getElementById("tcCheckbox");
-    const btn = document.getElementById("acceptBtn");
-    if (btn) btn.disabled = !cb.checked;
-}
-function acceptTerms() {
-    localStorage.setItem("tcsAccepted", "yes");
-    const m = document.getElementById("tcs-message");
-    if (m) { m.textContent = "✅ Thank you! You have accepted the Terms & Conditions."; m.style.color = "#16a34a"; }
-    setTimeout(() => { window.location.href = "index.html"; }, 2000);
-}
-function declineTerms() {
-    localStorage.removeItem("tcsAccepted");
-    const m = document.getElementById("tcs-message");
-    if (m) { m.textContent = "❌ You have declined the Terms & Conditions."; m.style.color = "#dc2626"; }
-}
-
-// ═══════════════════════════════════════════════════
-//  AUTH  (localStorage-based — works on GitHub Pages)
-// ═══════════════════════════════════════════════════
-
-function getUsers()        { return JSON.parse(localStorage.getItem("koa_users") || "[]"); }
-function saveUsers(u)      { localStorage.setItem("koa_users", JSON.stringify(u)); }
-function getCurrentUser() {
-    // Works with both Firebase auth and localStorage auth
-    const loggedIn = localStorage.getItem("loggedIn") === "true";
-    if (loggedIn) {
-        return {
-            name:  localStorage.getItem("userName")  || "Customer",
-            email: localStorage.getItem("userEmail") || ""
-        };
-    }
-    // Fallback: old localStorage-only accounts
-    return JSON.parse(localStorage.getItem("koa_currentUser") || "null");
-}
-
-// Show/hide nav links based on login state
-function updateNavAuth() {
-    const user       = getCurrentUser();
-    const loginEl    = document.getElementById("nav-login");
-    const signupEl   = document.getElementById("nav-signup");
-    const logoutEl   = document.getElementById("nav-logout");
-    const greetEl    = document.getElementById("nav-greeting");
-
-    if (user) {
-        if (loginEl)  loginEl.style.display  = "none";
-        if (signupEl) signupEl.style.display  = "none";
-        if (logoutEl) logoutEl.style.display  = "list-item";
-        if (greetEl)  greetEl.textContent     = "Hi, " + user.name + "!";
-    } else {
-        if (loginEl)  loginEl.style.display  = "list-item";
-        if (signupEl) signupEl.style.display  = "list-item";
-        if (logoutEl) logoutEl.style.display  = "none";
-        if (greetEl)  greetEl.textContent     = "";
-    }
-}
-
-function handleSignup(e) {
-    e.preventDefault();
-    const get = id => document.getElementById(id).value.trim();
-    const name     = get("signup-name");
-    const surname  = get("signup-surname");
-    const phone    = get("signup-phone");
-    const email    = get("signup-email").toLowerCase();
-    const username = get("signup-username").toLowerCase();
-    const password = document.getElementById("signup-password").value;
-    const confirm  = document.getElementById("signup-confirm").value;
-    const errEl    = document.getElementById("signup-error");
-
-    errEl.textContent = "";
-    if (password !== confirm)  { errEl.textContent = "Passwords do not match.";                  return; }
-    if (password.length < 6)   { errEl.textContent = "Password must be at least 6 characters."; return; }
-    if (!name || !email || !username) { errEl.textContent = "Please fill in all fields."; return; }
-
-    const users = getUsers();
-    if (users.find(u => u.username === username || u.email === email)) {
-        errEl.textContent = "An account with that username or email already exists.";
-        return;
-    }
-
-    const newUser = { name, surname, phone, email, username, password };
-    users.push(newUser);
-    saveUsers(users);
-    localStorage.setItem("koa_currentUser", JSON.stringify(newUser));
-    window.location.href = "index.html";
-}
-
-function handleLogin(e) {
-    e.preventDefault();
-    const username = document.getElementById("login-username").value.trim().toLowerCase();
-    const password = document.getElementById("login-password").value;
-    const errEl    = document.getElementById("login-error");
-
-    errEl.textContent = "";
-    const user = getUsers().find(u =>
-        (u.username === username || u.email === username) && u.password === password
-    );
-
-    if (!user) { errEl.textContent = "Incorrect username or password."; return; }
-
-    localStorage.setItem("koa_currentUser", JSON.stringify(user));
-    window.location.href = "index.html";
-}
-
-function handleLogout() {
-    localStorage.removeItem("koa_currentUser");
-    localStorage.removeItem("loggedIn");
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("userName");
-    window.location.href = "index.html";
-}
-
 // ── Init ──────────────────────────────────────────
 window.onload = function () {
     if (!Array.isArray(cart)) cart = [];
@@ -338,246 +362,6 @@ window.onload = function () {
     updateWhatsApp();
     updateNavAuth();
 
-    const sf = document.getElementById("signupForm");
-    if (sf) sf.addEventListener("submit", handleSignup);
-
-    const lf = document.getElementById("loginForm");
-    if (lf) lf.addEventListener("submit", handleLogin);
-
     const lb = document.getElementById("logoutBtn");
     if (lb) lb.addEventListener("click", handleLogout);
-};
-
-// ============================
-// SAVE CART
-// ============================
-function saveCart() {
-    localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-// ============================
-// ADD TO CART
-// ============================
-function addToCart(name, image, price) {
-    price = Number(price);
-    cart.push({ name, image, price });
-    saveCart();
-    updateCartUI();
-    updateWhatsApp();
-    updateCartCount();
-    showToast(name + " added to cart!");
-}
-
-// ============================
-// REMOVE ITEM
-// ============================
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    saveCart();
-    updateCartUI();
-    updateWhatsApp();
-    updateCartCount();
-}
-
-// ============================
-// CLEAR CART
-// ============================
-function clearCart() {
-    cart = [];
-    saveCart();
-    updateCartUI();
-    updateWhatsApp();
-    updateCartCount();
-}
-
-// ============================
-// UPDATE CART COUNT (in nav)
-// ============================
-function updateCartCount() {
-    const count = document.getElementById("cartCount");
-    if (count) count.innerText = cart.length;
-}
-
-// ============================
-// UPDATE CART UI (cart page)
-// ============================
-function updateCartUI() {
-    const cartItems = document.getElementById("cartItems");
-    if (!cartItems) return;
-
-    cartItems.innerHTML = "";
-    let total = 0;
-
-    if (cart.length === 0) {
-        cartItems.innerHTML = '<li style="padding:20px; text-align:center; color:#888;">Your cart is empty. <a href="products.html" style="color:#d4af37;">Browse products</a></li>';
-    }
-
-    cart.forEach((item, index) => {
-        total += Number(item.price);
-
-        const li = document.createElement("li");
-        li.classList.add("cart-item");
-
-        const left = document.createElement("div");
-        left.classList.add("cart-left");
-
-        const right = document.createElement("div");
-        right.classList.add("cart-right");
-
-        if (item.image) {
-            const img = document.createElement("img");
-            img.src = item.image;
-            img.alt = item.name;
-            left.appendChild(img);
-        }
-
-        const info = document.createElement("div");
-        const nameEl = document.createElement("div");
-        nameEl.style.fontWeight = "600";
-        nameEl.style.color = "#0f172a";
-        nameEl.textContent = item.name;
-
-        const priceEl = document.createElement("div");
-        priceEl.style.color = "#b9911e";
-        priceEl.style.fontSize = "15px";
-        priceEl.textContent = "R" + Number(item.price).toLocaleString("en-ZA", { minimumFractionDigits: 2 });
-
-        info.appendChild(nameEl);
-        info.appendChild(priceEl);
-        left.appendChild(info);
-
-        const removeBtn = document.createElement("button");
-        removeBtn.textContent = "Remove";
-        removeBtn.onclick = () => removeFromCart(index);
-        right.appendChild(removeBtn);
-
-        li.appendChild(left);
-        li.appendChild(right);
-        cartItems.appendChild(li);
-    });
-
-    const itemCount = document.getElementById("itemCount");
-    const cartTotal = document.getElementById("cartTotal");
-    if (itemCount) itemCount.innerText = cart.length;
-    if (cartTotal) cartTotal.innerText = "R" + total.toLocaleString("en-ZA", { minimumFractionDigits: 2 });
-}
-
-// ============================
-// WHATSAPP CHECKOUT LINK
-// ============================
-function updateWhatsApp() {
-    const btn = document.getElementById("whatsappCheckout");
-    if (!btn) return;
-
-    let msg = "Hi Keys Of Africa,%0A%0AI would like to place the following order:%0A%0A";
-    cart.forEach(item => {
-        msg += `• ${item.name} — R${Number(item.price).toLocaleString("en-ZA")}%0A`;
-    });
-
-    const total = cart.reduce((sum, i) => sum + Number(i.price), 0);
-    msg += `%0ATotal: R${total.toLocaleString("en-ZA")}%0A%0APlease confirm availability and delivery cost. Thank you!`;
-
-    btn.href = `https://wa.me/27637836366?text=${msg}`;
-}
-
-// ============================
-// BUILD ORDER OBJECT FOR FORM
-// ============================
-function buildOrder() {
-    return {
-        customer: {
-            name: document.getElementById("name")?.value || "",
-            email: document.getElementById("email")?.value || "",
-            phone: document.getElementById("phone")?.value || ""
-        },
-        items: cart,
-        total: cart.reduce((sum, i) => sum + Number(i.price), 0),
-        date: new Date().toISOString()
-    };
-}
-
-// ============================
-// FORM SUBMIT HANDLER
-// ============================
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("form");
-    if (!form) return;
-
-    form.addEventListener("submit", (e) => {
-        if (cart.length === 0) {
-            e.preventDefault();
-            showToast("Your cart is empty! Add products before ordering.");
-            return;
-        }
-
-        let hidden = document.getElementById("order");
-        if (!hidden) {
-            hidden = document.createElement("input");
-            hidden.type = "hidden";
-            hidden.name = "order";
-            hidden.id = "order";
-            form.appendChild(hidden);
-        }
-        hidden.value = JSON.stringify(buildOrder(), null, 2);
-        saveCart();
-    });
-});
-
-// ============================
-// MOBILE NAV TOGGLE
-// ============================
-function toggleMenu() {
-    const nav = document.getElementById("navMenu");
-    if (nav) nav.classList.toggle("open");
-}
-
-// ============================
-// PRODUCT SEARCH
-// ============================
-function searchProducts() {
-    const input = document.getElementById("search");
-    if (!input) return;
-    const term = input.value.toLowerCase();
-    const cards = document.querySelectorAll(".product-images div");
-    cards.forEach(card => {
-        const title = card.querySelector("h5");
-        if (title) {
-            card.style.display = title.innerText.toLowerCase().includes(term) ? "flex" : "none";
-        }
-    });
-}
-
-// ============================
-// TOAST NOTIFICATION
-// ============================
-function showToast(message) {
-    let toast = document.getElementById("koa-toast");
-    if (!toast) {
-        toast = document.createElement("div");
-        toast.id = "koa-toast";
-        toast.style.cssText = `
-            position: fixed; bottom: 90px; right: 20px; z-index: 9999;
-            background: #0f172a; color: #d4af37;
-            padding: 12px 20px; border-radius: 8px;
-            font-size: 14px; font-weight: 600;
-            border: 1px solid #d4af37;
-            opacity: 0; transition: opacity 0.3s;
-            max-width: 280px;
-        `;
-        document.body.appendChild(toast);
-    }
-    toast.textContent = message;
-    toast.style.opacity = "1";
-    clearTimeout(toast._timer);
-    toast._timer = setTimeout(() => { toast.style.opacity = "0"; }, 3000);
-}
-
-// ============================
-// INIT ON PAGE LOAD
-// ============================
-window.onload = function () {
-    if (!Array.isArray(cart)) cart = [];
-    updateCartUI();
-    updateCartCount();
-    updateWhatsApp();
 };
