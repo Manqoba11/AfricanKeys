@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
         .auth-card h2 { text-align:center; color:#0f172a; font-size:21px; margin-bottom:22px; }
         .auth-group { margin-bottom:16px; }
         .auth-group label { display:block; font-size:13px; font-weight:bold; color:#0f172a; margin-bottom:5px; }
-        .auth-group input { width:100%; padding:11px 14px; border:1.5px solid #e2e8f0; border-radius:7px; font-size:15px; font-family:inherit; background:#fafafa; transition:border-color 0.2s; }
+        .auth-group input { width:100%; padding:11px 14px; border:1.5px solid #e2e8f0; border-radius:7px; font-size:15px; font-family:inherit; background:#fafafa; transition:border-color 0.2s; box-sizing:border-box; }
         .auth-group input:focus { outline:none; border-color:#d4af37; background:#fff; }
         .auth-btn { width:100%; padding:13px; background:#d4af37; color:white; border:none; border-radius:7px; font-size:16px; font-weight:bold; cursor:pointer; margin-top:6px; transition:background 0.2s; }
         .auth-btn:hover { background:#b9911e; }
@@ -27,6 +28,7 @@
 </head>
 <body>
     <script src="cart.js"></script>
+
     <header>
         <div class="logo"><h1>Keys Of Africa</h1></div>
         <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
@@ -44,6 +46,7 @@
                 <li id="nav-login"><a href="login.html">Login</a></li>
                 <li id="nav-signup"><a href="signup.html">Sign Up</a></li>
                 <li id="nav-logout" style="display:none;"><a href="#" id="logoutBtn">Logout</a></li>
+                <li id="nav-greeting" style="color:#d4af37;font-weight:600;padding:0 10px;"></li>
             </ul>
         </nav>
     </header>
@@ -75,47 +78,46 @@
     <footer>
         <p>&copy; 2026 <span>Keys Of Africa</span>. All rights reserved.</p>
     </footer>
-    <a href="https://wa.me/27637836366" class="floating-whatsapp" aria-label="WhatsApp">&#128172;</a>
+    <a href="https://wa.me/27637836366" class="floating-whatsapp" aria-label="WhatsApp">💬</a>
 
-    <!-- ================================================================
-         FIREBASE AUTH
-         Replace the firebaseConfig values below with your own project's
-         config from: Firebase Console > Project Settings > Your Apps
-    ================================================================= -->
     <script type="module">
         import { initializeApp }
             from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged }
             from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
-        // 🔧 REPLACE WITH YOUR FIREBASE CONFIG
         const firebaseConfig = {
-            apiKey:            "YOUR_API_KEY",
-            authDomain:        "YOUR_PROJECT.firebaseapp.com",
-            projectId:         "YOUR_PROJECT_ID",
-            storageBucket:     "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId:             "YOUR_APP_ID"
+            apiKey:            "AIzaSyByP9j3KRfs5BxbrfO5mQzR9PJQUp4Qjho",
+            authDomain:        "keys-of-africa.firebaseapp.com",
+            projectId:         "keys-of-africa",
+            storageBucket:     "keys-of-africa.firebasestorage.app",
+            messagingSenderId: "295412124500",
+            appId:             "1:295412124500:web:db00efdbe5319869b416c1"
         };
 
         const app  = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // If already logged in, skip login page and go home
+        // If already logged in, redirect appropriately
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 localStorage.setItem("loggedIn", "true");
                 localStorage.setItem("userEmail", user.email);
                 localStorage.setItem("userName", user.displayName || user.email.split("@")[0]);
-                window.location.href = "index.html";
+
+                // Check if T&Cs accepted for this user
+                const tcsKey = "tcsAccepted_" + user.email;
+                if (localStorage.getItem(tcsKey) === "true") {
+                    window.location.href = "index.html";
+                } else {
+                    window.location.href = "Ts&Cs.html";
+                }
             }
         });
 
-        // Login form submit
         document.getElementById("loginForm").addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            // ✅ Read values FROM the form inputs
             const email    = document.getElementById("login-email").value.trim();
             const password = document.getElementById("login-password").value;
             const errEl    = document.getElementById("login-error");
@@ -123,13 +125,11 @@
 
             errEl.textContent = "";
 
-            // Basic front-end checks
             if (!email || !password) {
                 errEl.textContent = "Please enter your email and password.";
                 return;
             }
 
-            // Show loading state
             btn.disabled    = true;
             btn.textContent = "Logging in...";
 
@@ -137,36 +137,34 @@
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
-                // Save login state so cart.js knows user is logged in
                 localStorage.setItem("loggedIn", "true");
                 localStorage.setItem("userEmail", user.email);
                 localStorage.setItem("userName", user.displayName || user.email.split("@")[0]);
 
-                // Send to home page
-                window.location.href = "index.html";
+                // After login: go to T&Cs if not yet accepted, otherwise go home
+                const tcsKey = "tcsAccepted_" + user.email;
+                if (localStorage.getItem(tcsKey) === "true") {
+                    window.location.href = "index.html";
+                } else {
+                    window.location.href = "Ts&Cs.html";
+                }
 
             } catch (error) {
                 btn.disabled    = false;
                 btn.textContent = "Login";
 
-                // Friendly error messages for each Firebase error code
                 switch (error.code) {
                     case "auth/invalid-email":
-                        errEl.textContent = "Please enter a valid email address.";
-                        break;
+                        errEl.textContent = "Please enter a valid email address."; break;
                     case "auth/user-not-found":
-                        errEl.textContent = "No account found with that email. Please sign up.";
-                        break;
+                        errEl.textContent = "No account found with that email. Please sign up."; break;
                     case "auth/wrong-password":
                     case "auth/invalid-credential":
-                        errEl.textContent = "Incorrect email or password. Please try again.";
-                        break;
+                        errEl.textContent = "Incorrect email or password. Please try again."; break;
                     case "auth/user-disabled":
-                        errEl.textContent = "This account has been disabled. Contact support.";
-                        break;
+                        errEl.textContent = "This account has been disabled. Contact support."; break;
                     case "auth/too-many-requests":
-                        errEl.textContent = "Too many failed attempts. Please wait a moment and try again.";
-                        break;
+                        errEl.textContent = "Too many failed attempts. Please wait and try again."; break;
                     default:
                         errEl.textContent = "Login failed. Please try again.";
                         console.error("Firebase login error:", error.code, error.message);

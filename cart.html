@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,58 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart | Keys Of Africa</title>
     <link rel="stylesheet" href="st.css">
-    
 </head>
-
 <body>
-    <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    <script src="cart.js"></script>
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyByP9j3KRfs5BxbrfO5mQzR9PJQUp4Qjho",
-    authDomain: "keys-of-africa.firebaseapp.com",
-    projectId: "keys-of-africa",
-    storageBucket: "keys-of-africa.firebasestorage.app",
-    messagingSenderId: "295412124500",
-    appId: "1:295412124500:web:db00efdbe5319869b416c1",
-    measurementId: "G-T7NE0XE782"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-<script src="cart.js"></script>
     <header>
-        <div class="logo">
-            <h1>Keys Of Africa</h1>
-        </div>
-        <nav>
+        <div class="logo"><h1>Keys Of Africa</h1></div>
+        <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="navMenu">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="products.html">Products</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a></li>
-                <li id="signupLink"><a href="signup.html">Sign Up</a></li>
-                <li id="logoutLink" style="display:none;"><a href="#" onclick="logout()">Logout</a></li>
-
+                <li><a href="Ts&Cs.html">Terms &amp; Conditions</a></li>
+                <li><a href="cart.html" class="cart-link">&#128722; Cart (<span id="cartCount">0</span>)</a></li>
+                <li id="nav-login"><a href="login.html">Login</a></li>
+                <li id="nav-signup"><a href="signup.html">Sign Up</a></li>
+                <li id="nav-logout" style="display:none;"><a href="#" id="logoutBtn">Logout</a></li>
+                <li id="nav-greeting" style="color:#d4af37;font-weight:600;padding:0 10px;"></li>
             </ul>
         </nav>
     </header>
-    <script>
-if(localStorage.getItem("loggedIn") !== "true"){
-    alert("Please login first.");
-    window.location.href = "login.html";
-}
-</script>
 
     <div class="cart-page">
 
@@ -69,7 +43,6 @@ if(localStorage.getItem("loggedIn") !== "true"){
             <div>
                 <ul id="cartItems">
                     <!-- Items loaded by cart.js -->
-                     
                 </ul>
             </div>
 
@@ -91,73 +64,44 @@ if(localStorage.getItem("loggedIn") !== "true"){
                         <span>Total</span>
                         <span id="cartTotal">R0.00</span>
                     </div>
-                        <button onclick="clearCart()">
-                            Clear Cart
-                        </button>
+                    <button onclick="clearCart()">Clear Cart</button>
                 </div>
 
                 <!-- Checkout Form -->
                 <form id="checkoutForm" action="https://formspree.io/f/xojzpppk" method="POST">
-                    <input type="hidden" name="order" id="order"> 
-                     <input type="hidden" name="cartData" id="cartData">
-            
-                <div class="checkout-form">
-                    <h2>📦 Your Details</h2>
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name"  name="name" placeholder="e.g. John Dlamini" required>
+                    <input type="hidden" name="order" id="order">
+                    <input type="hidden" name="cartData" id="cartData">
+
+                    <div class="checkout-form">
+                        <h2>📦 Your Details</h2>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="e.g. John Dlamini" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="e.g. john@gmail.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="e.g. 063 783 6366" required>
+                        </div>
+
+                        <button type="submit">✅ Place Order</button>
+
+                        <a id="whatsappCheckout" href="#" class="whatsapp-checkout">
+                            💬 Order via WhatsApp
+                        </a>
                     </div>
-
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="e.g. john@gmail.com" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="e.g. 063 783 6366" required>
-                    </div>
-                        <script>
-                            document.getElementById("checkoutForm")
-                            .addEventListener("submit", function(e){
-
-                            if(localStorage.getItem("acceptedTCs") !== "true"){
-
-                                e.preventDefault();
-
-                            alert("Please accept the Terms & Conditions before placing your order.");
-
-                                window.location.href = "Ts&Cs.html";
-                            }
-                        });
-                        </script>
-
-                    <button type="submit">
-                          ✅ Place Order
-                    </button>
-
-                    <a id="whatsappCheckout" href="#" class="whatsapp-checkout">
-                        💬 Order via WhatsApp
-                    </a>
-                </div>
                 </form>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2025 Keys Of Africa. All Rights Reserved.</p>
+        <p>&copy; 2026 Keys Of Africa. All Rights Reserved.</p>
     </footer>
-    <div class="loader_load-wrapper">
-    <div class="loader_loader"></div>
-</div>
 
-    <script src="cart.js"></script>
-    <a href="https://wa.me/27637836366"
-class="floating-whatsapp">
-💬
-</a>
-
-
+    <a href="https://wa.me/27637836366" class="floating-whatsapp" aria-label="WhatsApp">💬</a>
 </body>
 </html>
