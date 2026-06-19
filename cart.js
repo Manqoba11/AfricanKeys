@@ -134,6 +134,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
     if (!form) return;
     form.addEventListener("submit", e => {
+        // 1. Must be logged in
+        if (!getCurrentUser()) {
+            e.preventDefault();
+            showToast("⚠️ Please log in before placing an order.");
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1800);
+            return;
+        }
+        // 2. Cart must not be empty
         if (cart.length === 0) {
             e.preventDefault();
             showToast("Your cart is empty! Add products first.");
@@ -146,6 +156,33 @@ document.addEventListener("DOMContentLoaded", () => {
         })();
         hidden.value = JSON.stringify(buildOrder(), null, 2);
     });
+
+    // Also block WhatsApp checkout if not logged in
+    const waBtn = document.getElementById("whatsappCheckout");
+    if (waBtn) {
+        waBtn.addEventListener("click", e => {
+            if (!getCurrentUser()) {
+                e.preventDefault();
+                showToast("⚠️ Please log in before placing an order.");
+                setTimeout(() => { window.location.href = "login.html"; }, 1800);
+            }
+        });
+    }
+
+    // Show login prompt banner on cart page if not logged in
+    const cartPage = document.querySelector(".cart-page");
+    if (cartPage && !getCurrentUser()) {
+        const banner = document.createElement("div");
+        banner.style.cssText = "background:#fff7e6;border:1.5px solid #d4af37;border-radius:8px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;";
+        banner.innerHTML = `
+            <span style="color:#92600a;font-size:14px;font-weight:600;">
+                ⚠️ You must be logged in to place an order.
+            </span>
+            <a href="login.html" style="background:#d4af37;color:white;padding:8px 18px;border-radius:6px;font-weight:bold;font-size:13px;text-decoration:none;">
+                Login Now →
+            </a>`;
+        cartPage.insertBefore(banner, cartPage.firstChild);
+    }
 });
 
 // ── Mobile nav toggle ─────────────────────────────
@@ -530,4 +567,3 @@ window.onload = function () {
     updateCartCount();
     updateWhatsApp();
 };
- 
