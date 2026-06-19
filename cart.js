@@ -241,7 +241,18 @@ function declineTerms() {
 
 function getUsers()        { return JSON.parse(localStorage.getItem("koa_users") || "[]"); }
 function saveUsers(u)      { localStorage.setItem("koa_users", JSON.stringify(u)); }
-function getCurrentUser()  { return JSON.parse(localStorage.getItem("koa_currentUser") || "null"); }
+function getCurrentUser() {
+    // Works with both Firebase auth and localStorage auth
+    const loggedIn = localStorage.getItem("loggedIn") === "true";
+    if (loggedIn) {
+        return {
+            name:  localStorage.getItem("userName")  || "Customer",
+            email: localStorage.getItem("userEmail") || ""
+        };
+    }
+    // Fallback: old localStorage-only accounts
+    return JSON.parse(localStorage.getItem("koa_currentUser") || "null");
+}
 
 // Show/hide nav links based on login state
 function updateNavAuth() {
@@ -313,6 +324,9 @@ function handleLogin(e) {
 
 function handleLogout() {
     localStorage.removeItem("koa_currentUser");
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
     window.location.href = "index.html";
 }
 

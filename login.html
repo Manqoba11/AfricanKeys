@@ -5,60 +5,174 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Keys Of Africa</title>
     <link rel="stylesheet" href="st.css">
+    <style>
+        .auth-page { min-height:80vh; display:flex; align-items:center; justify-content:center; padding:40px 20px; background:#f5f6f8; }
+        .auth-card { background:#fff; border-radius:14px; box-shadow:0 6px 28px rgba(0,0,0,.10); padding:44px 40px; width:100%; max-width:420px; }
+        .auth-logo { text-align:center; font-size:26px; font-weight:bold; color:#d4af37; margin-bottom:6px; }
+        .auth-subtitle { text-align:center; color:#888; font-size:13px; margin-bottom:24px; }
+        .auth-card h2 { text-align:center; color:#0f172a; font-size:21px; margin-bottom:22px; }
+        .auth-group { margin-bottom:16px; }
+        .auth-group label { display:block; font-size:13px; font-weight:bold; color:#0f172a; margin-bottom:5px; }
+        .auth-group input { width:100%; padding:11px 14px; border:1.5px solid #e2e8f0; border-radius:7px; font-size:15px; font-family:inherit; background:#fafafa; transition:border-color 0.2s; }
+        .auth-group input:focus { outline:none; border-color:#d4af37; background:#fff; }
+        .auth-btn { width:100%; padding:13px; background:#d4af37; color:white; border:none; border-radius:7px; font-size:16px; font-weight:bold; cursor:pointer; margin-top:6px; transition:background 0.2s; }
+        .auth-btn:hover { background:#b9911e; }
+        .auth-btn:disabled { background:#ccc; cursor:not-allowed; }
+        .auth-error { color:#dc2626; font-size:13px; text-align:center; min-height:18px; margin-bottom:8px; }
+        .auth-link { text-align:center; margin-top:20px; font-size:14px; color:#666; }
+        .auth-link a { color:#d4af37; font-weight:bold; text-decoration:none; }
+        .auth-link a:hover { text-decoration:underline; }
+        hr { border:none; border-top:1px solid #e2e8f0; margin:20px 0; }
+    </style>
 </head>
 <body>
+    <script src="cart.js"></script>
+    <header>
+        <div class="logo"><h1>Keys Of Africa</h1></div>
+        <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="navMenu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="Ts&Cs.html">Terms &amp; Conditions</a></li>
+                <li><a href="cart.html" class="cart-link">&#128722; Cart (<span id="cartCount">0</span>)</a></li>
+                <li id="nav-login"><a href="login.html">Login</a></li>
+                <li id="nav-signup"><a href="signup.html">Sign Up</a></li>
+                <li id="nav-logout" style="display:none;"><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="auth-page">
+        <div class="auth-card">
+            <div class="auth-logo">Keys Of Africa</div>
+            <div class="auth-subtitle">Aluminium Doors &amp; Windows</div>
+            <hr>
+            <h2>Login to Your Account</h2>
+            <form id="loginForm" novalidate>
+                <div class="auth-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" placeholder="example@email.com" required autocomplete="email">
+                </div>
+                <div class="auth-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Your password" required autocomplete="current-password">
+                </div>
+                <p class="auth-error" id="login-error"></p>
+                <button type="submit" class="auth-btn" id="login-btn">Login</button>
+            </form>
+            <div class="auth-link">
+                Don't have an account? <a href="signup.html">Sign Up here</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 <span>Keys Of Africa</span>. All rights reserved.</p>
+    </footer>
+    <a href="https://wa.me/27637836366" class="floating-whatsapp" aria-label="WhatsApp">&#128172;</a>
+
+    <!-- ================================================================
+         FIREBASE AUTH
+         Replace the firebaseConfig values below with your own project's
+         config from: Firebase Console > Project Settings > Your Apps
+    ================================================================= -->
     <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+        import { initializeApp }
+            from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged }
+            from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyByP9j3KRfs5BxbrfO5mQzR9PJQUp4Qjho",
-    authDomain: "keys-of-africa.firebaseapp.com",
-    projectId: "keys-of-africa",
-    storageBucket: "keys-of-africa.firebasestorage.app",
-    messagingSenderId: "295412124500",
-    appId: "1:295412124500:web:db00efdbe5319869b416c1",
-    measurementId: "G-T7NE0XE782"
-  };
+        // 🔧 REPLACE WITH YOUR FIREBASE CONFIG
+        const firebaseConfig = {
+            apiKey:            "YOUR_API_KEY",
+            authDomain:        "YOUR_PROJECT.firebaseapp.com",
+            projectId:         "YOUR_PROJECT_ID",
+            storageBucket:     "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId:             "YOUR_APP_ID"
+        };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-            <script src="cart.js"></script>
-            <script type="module" src="login.js"></script>
-<header>
-    <div class="logo">
-        <h1>Keys Of Africa</h1>
-    </div>
-    <nav id="navbar">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            <li><a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a></li>
-            <li id="loginLink"><a href="login.html">Login</a></li>
-            <li id="signupLink"><a href="signup.html">Sign Up</a></li>
-            <li id="logoutLink" style="display:none;"><a href="#" onclick="logout()">Logout</a></li>
-        </ul>
-    </nav>
-</header>
+        const app  = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
-    <h1>Login to Your Account</h1>
-    <div class="login-container">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Enter your email">
+        // If already logged in, skip login page and go home
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                localStorage.setItem("loggedIn", "true");
+                localStorage.setItem("userEmail", user.email);
+                localStorage.setItem("userName", user.displayName || user.email.split("@")[0]);
+                window.location.href = "index.html";
+            }
+        });
 
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password">
-            <button class="login-btn" onclick="login()">Login</button>
-    </div>
+        // Login form submit
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // ✅ Read values FROM the form inputs
+            const email    = document.getElementById("login-email").value.trim();
+            const password = document.getElementById("login-password").value;
+            const errEl    = document.getElementById("login-error");
+            const btn      = document.getElementById("login-btn");
+
+            errEl.textContent = "";
+
+            // Basic front-end checks
+            if (!email || !password) {
+                errEl.textContent = "Please enter your email and password.";
+                return;
+            }
+
+            // Show loading state
+            btn.disabled    = true;
+            btn.textContent = "Logging in...";
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Save login state so cart.js knows user is logged in
+                localStorage.setItem("loggedIn", "true");
+                localStorage.setItem("userEmail", user.email);
+                localStorage.setItem("userName", user.displayName || user.email.split("@")[0]);
+
+                // Send to home page
+                window.location.href = "index.html";
+
+            } catch (error) {
+                btn.disabled    = false;
+                btn.textContent = "Login";
+
+                // Friendly error messages for each Firebase error code
+                switch (error.code) {
+                    case "auth/invalid-email":
+                        errEl.textContent = "Please enter a valid email address.";
+                        break;
+                    case "auth/user-not-found":
+                        errEl.textContent = "No account found with that email. Please sign up.";
+                        break;
+                    case "auth/wrong-password":
+                    case "auth/invalid-credential":
+                        errEl.textContent = "Incorrect email or password. Please try again.";
+                        break;
+                    case "auth/user-disabled":
+                        errEl.textContent = "This account has been disabled. Contact support.";
+                        break;
+                    case "auth/too-many-requests":
+                        errEl.textContent = "Too many failed attempts. Please wait a moment and try again.";
+                        break;
+                    default:
+                        errEl.textContent = "Login failed. Please try again.";
+                        console.error("Firebase login error:", error.code, error.message);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
