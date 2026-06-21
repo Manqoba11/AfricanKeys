@@ -366,35 +366,3 @@ window.onload = function () {
     if (lb) lb.addEventListener("click", handleLogout);
 };
 
-
-
-function toggleMenu() {
-    document.getElementById("navMenu").classList.toggle("active");
-}
-document.addEventListener("DOMContentLoaded", () => {
-
-    const loggedIn =
-    localStorage.getItem("loggedIn");
-
-    const loginLink =
-    document.getElementById("loginLink");
-
-    const signupLink =
-    document.getElementById("signupLink");
-
-    const logoutLink =
-    document.getElementById("logoutLink");
-
-    if(loggedIn === "true"){
-
-        if(loginLink)
-            loginLink.style.display = "none";
-
-        if(signupLink)
-            signupLink.style.display = "none";
-
-        if(logoutLink)
-            logoutLink.style.display = "block";
-
-    }
-});
