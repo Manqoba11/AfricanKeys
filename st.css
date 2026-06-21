@@ -1168,3 +1168,47 @@ header {
     display:flex;
     position: left;
 }
+
+/* Hamburger Icon */
+.menu-toggle {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    padding: 10px;
+}
+
+.menu-toggle span {
+    width: 30px;
+    height: 3px;
+    background: white;
+    transition: 0.4s;
+}
+
+/* Hide menu initially */
+#navMenu {
+    display: none;
+    width: 100%;
+}
+
+/* Show when clicked */
+#navMenu.active {
+    display: block;
+}
+
+#navMenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 15px;
+    background: #111;
+}
+
+#navMenu ul li {
+    margin: 10px 0;
+    text-align: center;
+}
+
+#navMenu ul li a {
+    color: white;
+    text-decoration: none;
+}
