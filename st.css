@@ -1033,6 +1033,7 @@ footer {
 
     .cart-page-title {
         font-size: 28px;
+
     }
 
     .cart-item {
@@ -1048,4 +1049,28 @@ footer {
         flex-direction: column;
         align-items: center;
     }
+}
+/* ===========================
+   PRODUCT SEARCH
+=========================== */
+
+.product-toolbar{
+    width:90%;
+    max-width:1200px;
+    margin:35px auto;
+}
+
+#searchInput{
+    width:100%;
+    padding:16px 20px;
+    border:2px solid #d4af37;
+    border-radius:10px;
+    font-size:16px;
+    outline:none;
+    transition:.3s;
+    box-sizing:border-box;
+}
+
+#searchInput:focus{
+    box-shadow:0 0 10px rgba(212,175,55,.35);
 }
