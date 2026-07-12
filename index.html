@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,64 +7,40 @@
     <link rel="stylesheet" href="st.css">
 </head>
 <body>
-    
+    <script src="cart.js"></script>
 
-    <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    <header>
+        <div class="logo">
+            <h1>Keys Of Africa</h1>
+        </div>
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyByP9j3KRfs5BxbrfO5mQzR9PJQUp4Qjho",
-    authDomain: "keys-of-africa.firebaseapp.com",
-    projectId: "keys-of-africa",
-    storageBucket: "keys-of-africa.firebasestorage.app",
-    messagingSenderId: "295412124500",
-    appId: "1:295412124500:web:db00efdbe5319869b416c1",
-    measurementId: "G-T7NE0XE782"
-  };
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+        <nav id="navMenu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="Ts&Cs.html">Terms & Conditions</a></li>
+                <li><a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a></li>
 
-        <script src="cart.js"></script>
-<header>
-    <div class="logo">
-        <h1>Keys Of Africa</h1>
-    </div>
+                <!-- ✅ These IDs must match auth.js exactly -->
+                <li id="nav-login"><a href="login.html">Login</a></li>
+                <li id="nav-signup"><a href="signup.html">Sign Up</a></li>
+                <li id="nav-logout" style="display:none;">
+                    <a href="#" onclick="logout()">Logout</a>
+                </li>
+                <li id="nav-greeting" style="color:#d4af37; font-weight:600; padding:0 6px; list-style:none;"></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Hamburger Button -->
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-
-    <nav id="navMenu">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            <li><a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a></li>
-
-            <li id="loginLink"><a href="login.html">Login</a></li>
-            <li id="signupLink"><a href="signup.html">Sign Up</a></li>
-
-            <li id="logoutLink" style="display:none;">
-                <a href="#" onclick="logout()">Logout</a>
-            </li>
-        </ul>
-    </nav>
-</header>
-    
     <section class="hero">
         <img src="WhatsApp Image 2026-05-31 at 21.33.03 (1).jpeg" alt="Aluminium Door">
         <div class="hero-text">
@@ -73,84 +48,82 @@
             <h2>Keys Of Africa<br>Aluminium Doors & Windows</h2>
             <p><strong>Custom-made aluminium doors and windows for homes and businesses across South Africa. Quality craftsmanship, professional installation, and lasting results — guaranteed.</strong></p>
             <div class="hero-buttons">
-                <a href="products.html" class="btn btn-secondary">View Products</a>
+                <a href="products.html" class="btn btn-primary">View Products</a>
+                <a href="contact.html" class="btn btn-secondary">Get a Quote</a>
             </div>
             <p class="badge">✦ 15+ Years of Excellence | 100+ Projects Completed</p>
         </div>
     </section>
+
     <section class="products-preview">
         <div class="products-header">
             <span class="label">Our Products</span>
             <h2>Doors & Windows for Every Need</h2>
-            <p>All our aluminium products are custom-made to your exact measurements. Prices shown are starting prices for standard sizes — contact us for a personalised quote.</p>
+            <p>All our aluminium products are custom-made to your exact measurements. Contact us for a personalised quote.</p>
         </div>
         <div class="product-images">
             <div>
-                 <img src="WhatsApp Image 2026-05-31 at 21.33.03 (2).jpeg" alt="Aluminium Door Example">
-                 <h5>Aluminium Sliding Door</h5>
-                 <p>Smooth-gliding sliding door with a slim aluminium frame.<br> Perfect for patios, balconies, and indoor-outdoor living spaces</p>
+                <img src="WhatsApp Image 2026-05-31 at 21.33.03 (2).jpeg" alt="Aluminium Sliding Door">
+                <h5>Aluminium Sliding Door</h5>
+                <p>Smooth-gliding sliding door with a slim aluminium frame. Perfect for patios and balconies.</p>
             </div>
-
-                <div>
-                    <img src="WhatsApp Image 2026-05-31 at 21.33.03 (3).jpeg" alt="Gallery Image">
-                        <h5>Aluminium Casement Window</h5>
-                    <p>Classic casement window with a durable aluminium frame.<br> Ideal for bedrooms, kitchens, and living rooms</p>
-                </div>
-
             <div>
-                <img src="WhatsApp Image 2026-05-31 at 21.33.03 (4).jpeg" alt="Gallery Image">
-                    <h5>Gate</h5>
-                <p>Space-saving bi-fold door with a sleek aluminium design.<br> Great for connecting indoor and outdoor areas while maximizing natural light</p>
+                <img src="WhatsApp Image 2026-05-31 at 21.33.03 (3).jpeg" alt="Aluminium Casement Window">
+                <h5>Aluminium Casement Window</h5>
+                <p>Classic casement window with a durable aluminium frame. Ideal for bedrooms and kitchens.</p>
             </div>
-
-                <div>
-                    <img src="WhatsApp Image 2026-05-31 at 21.33.03 (5).jpeg" alt="Gallery Image">
-                        <h5>Aluminium Bi-Fold Door</h5>
-                    <p>Stylish awning window with a sturdy aluminium frame.<br> Perfect for bathrooms, kitchens, and areas that require ventilation</p>
-                </div>
             <div>
-                 <img src="WhatsApp Image 2026-05-31 at 21.33.03 (6).jpeg" alt="Aluminium Door Example">
-                     <h5>Aluminium Awning Window</h5>
-                 <p>Stylish awning window with a sturdy aluminium frame.<br> Perfect for bathrooms, kitchens, and areas that require ventilation</p>
+                <img src="WhatsApp Image 2026-05-31 at 21.33.03 (4).jpeg" alt="Aluminium Gate">
+                <h5>Aluminium Gate</h5>
+                <p>Sturdy and elegant aluminium gate. Secure your property in style.</p>
             </div>
-                <div>
-                    <img src="WhatsApp Image 2026-05-31 at 21.33.03 (1).jpeg" alt="Aluminium Door Example">
-                        <h5>Aluminium French Door</h5>
-                    <p>Elegant French door with a durable aluminium frame.<br> Ideal for living rooms, dining rooms, and any space that benefits from a classic look</p>
-                </div>
             <div>
-                <img src="WhatsApp Image 2026-05-31 at 21.33.03 (5).jpeg" alt="Aluminium Door Example">
-                    <h5>Gate</h5>
-                <p>Stylish gate with a durable aluminium frame.<br> Ideal for securing your property while maintaining an elegant appearance</p>
-           </div>
-               <div>
-                    <img src="WhatsApp Image 2026-05-31 at 21.33.03 (3).jpeg" alt="Aluminium Door Example">
-                        <h5>Aluminium window </h5>
-                    <p>Elegant French door with a durable aluminium frame.<br> Ideal for living rooms, dining rooms, and any space that benefits from a classic look</p>
-                </div>
+                <img src="WhatsApp Image 2026-05-31 at 21.33.03 (5).jpeg" alt="Aluminium Bi-Fold Door">
+                <h5>Aluminium Bi-Fold Door</h5>
+                <p>Space-saving bi-fold door. Great for connecting indoor and outdoor areas.</p>
+            </div>
+            <div>
+                <img src="WhatsApp Image 2026-05-31 at 21.33.03 (6).jpeg" alt="Aluminium Awning Window">
+                <h5>Aluminium Awning Window</h5>
+                <p>Top-hinged awning window. Perfect for ventilation even in rain.</p>
+            </div>
+            <div>
+                <img src="WhatsApp Image 2026-05-31 at 21.33.03 (1).jpeg" alt="Aluminium French Door">
+                <h5>Aluminium French Door</h5>
+                <p>Elegant double-leaf French door. Ideal for living and dining rooms.</p>
+            </div>
         </div>
     </section>
 
     <footer>
-        
         <div class="footerdiv">
-            
-            <p> Head Office <br>
-                Newcastle<br>
-                Osizweni<br>
-                D3100 <br>
-                2952<br>
-                Tel: +27637836366<br>
-                Email: manqobamk12@gmail.com<br>
+            <p>
+                Head Office<br>
+                Newcastle, Osizweni<br>
+                D3100, 2952<br>
+                Tel: +27 63 783 6366<br>
+                Email: manqobamk12@gmail.com
             </p>
         </div>
-        <p>&copy; 2025 Keys Of Africa. All rights reserved.</p> <!-- &copy for © -->
+        <p>&copy; 2025 Keys Of Africa. All Rights Reserved.</p>
     </footer>
-    <a href="https://wa.me/27637836366"
-class="floating-whatsapp">
-💬
-</a>
-<script type="module" src="auth.js"></script>
+
+    <a href="https://wa.me/27637836366" class="whatsapp-float" target="_blank">💬</a>
+
+    <style>
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #25D366; color: white;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            text-decoration: none; z-index: 999; transition: 0.3s;
+        }
+        .whatsapp-float:hover { background: #128C7E; transform: scale(1.1); }
+    </style>
+
+    <!-- ✅ auth.js must always be last -->
+    <script type="module" src="auth.js"></script>
+
 </body>
 </html>
-
