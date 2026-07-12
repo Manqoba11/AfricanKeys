@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,33 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products | Keys Of Africa</title>
     <link rel="stylesheet" href="st.css">
- 
+    <style>
+        .product-card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+            transition: 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .product-card-body {
+            padding: 18px 18px 6px 18px;
+            flex: 1;
+        }
+
+        .product-card-body h3 {
+            font-size: 18px;
+            color: #0f172a;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .product-card-body .price {
+            font-size: 20px;
+            font-weight: 800;
+            color: #d4af37;
+            margin-bottom: 8px;
+            padding: 0 !important;
+        }
+
+        .product-card-body p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            padding: 0 !important;
+        }
+
+        .product-card-actions {
+            padding: 14px 18px 18px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .product-card-actions .whatsapp-order-btn {
+            margin: 0;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+
+        .product-card-actions .cart-btn {
+            margin: 0;
+            width: 100%;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .product-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* Page header banner */
+        .page-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .page-banner h1 {
+            font-size: 42px;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .page-banner p {
+            color: #ccc;
+            font-size: 16px;
+            max-width: 600px;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
     <script src="cart.js"></script>
-    <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyByP9j3KRfs5BxbrfO5mQzR9PJQUp4Qjho",
-    authDomain: "keys-of-africa.firebaseapp.com",
-    projectId: "keys-of-africa",
-    storageBucket: "keys-of-africa.firebasestorage.app",
-    messagingSenderId: "295412124500",
-    appId: "1:295412124500:web:db00efdbe5319869b416c1",
-    measurementId: "G-T7NE0XE782"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
     <header>
         <div class="logo">
             <h1>Keys Of Africa</h1>
@@ -44,214 +118,238 @@
                 <li><a href="products.html">Products</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a></li>
-                <li id="signupLink"><a href="signup.html">Sign Up</a></li>
-                <li id="logoutLink" style="display:none;"><a href="#" onclick="logout()">Logout</a></li>
+                <li><a href="Ts&Cs.html">Terms & Conditions</a></li>
+                <li><a href="cart.html">🛒 Cart</a></li>
             </ul>
         </nav>
     </header>
-    <div class="products-page">
-            <input
-                type="text"
-                id="search"
-                placeholder="Search products..."
-                onkeyup="searchProducts()">
-        </div>
-    
-   <section class="products-preview">
-        <div class="products-header">
-            <span class="label">Our Products</span>
-            <h2>Doors & Windows for Every Need</h2>
-            <p>All our aluminium products are custom-made to your exact measurements. Prices shown are starting prices for standard sizes — contact us for a personalised quote.</p>
-        </div>
-        <div class="product-images">
-            <div>
-                 <img src="WhatsApp Image 2026-05-31 at 21.33.03 (1).jpeg " alt="Aluminium Door Example">
-                 <h5>Aluminium Sliding Door</h5>
-                 <p class="price">From R4800</p>
-                 <p>Smooth-gliding sliding door with a slim aluminium frame.<br> Perfect for patios, balconies, and indoor-outdoor living spaces</p>
-                <a href="https://wa.me/27637836366?text=Hi, I would like to order: [Product Name]" 
-            
-                    class="whatsapp-order-btn">
-                  🛒 Order via WhatsApp
-                </a>
-        
-               
-                <button class="cart-btn" onclick="addToCart('Aluminium Sliding Door','WhatsApp Image 2026-05-31 at 21.33.03 (1).jpeg', 4800)">
-                    Add to Cart
-               </button>
-           </div>
 
-                <div>
-                    <img src="WhatsApp Image 2026-05-31 at 21.33.04 (2).jpeg" alt="Gallery Image">
-                        <h5>Aluminium Casement Window</h5>
-                        <p class="price">From R1800</p>
-                    <p>Classic casement window with a durable aluminium frame.<br> Ideal for bedrooms, kitchens, and living rooms</p>
-                     <a href="https://wa.me/27637836366?text=Hi, I would like to order: [Product Name]" 
-                    
-                    class="whatsapp-order-btn">
-                  🛒 Order via WhatsApp
-                </a>
-                <button class="cart-btn" onclick="addToCart('Aluminium Casement Window','WhatsApp Image 2026-05-31 at 21.33.04 (2).jpeg', 1800)">
-                    Add to Cart
-                </button>
-                </div>
-
-            <div>
-                <img src="WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg" alt="Gallery Image">
-                    <h5>Gate</h5>
-                    <p class="price">From R2500</p>
-                <p>Space-saving bi-fold door with a sleek aluminium design.<br> Great for connecting indoor and outdoor areas while maximizing natural light</p>
-                <a href="https://wa.me/27637836366?text=Hi, I would like to order: [Product Name]" 
-                    
-                    class="whatsapp-order-btn">
-                  🛒 Order via WhatsApp
-                </a>
-                <button class="cart-btn" onclick="addToCart('Gate','WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg', 2500)">
-                    Add to Cart
-                </button>
-            </div>
-
-                <div>
-                    <img src="WhatsApp Image 2026-05-31 at 21.33.04 (1).jpeg" alt="Gallery Image">
-                        <h5>Aluminium Bi-Fold Door</h5>
-                    <p class="price">From R3200</p>
-                    <p>Stylish awning window with a sturdy aluminium frame.<br> Perfect for bathrooms, kitchens, and areas that require ventilation</p>
-                    <a href="https://wa.me/27637836366?text=Hi, I would like to order: [Product Name]" 
-            
-                    class="whatsapp-order-btn">
-                  🛒 Order via WhatsApp
-                </a>
-                <button class="cart-btn" onclick="addToCart('Aluminium Bi-Fold Door','WhatsApp Image 2026-05-31 at 21.33.04 (1).jpeg', 3200)">
-                    Add to Cart
-                </button>
-                </div>
-            <div>
-                 <img src="WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg" alt="Aluminium Door Example">
-                     <h5>Aluminium Awning Window</h5>
-                     <p class="price">From R4800</p>
-                 <p>Stylish awning window with a sturdy aluminium frame.<br> Perfect for bathrooms, kitchens, and areas that require ventilation</p>
-                    <a href="https://wa.me/27637836366?text=Hi, I would like to order: [Product Name]" 
-                    
-                        class="whatsapp-order-btn">
-                    🛒 Order via WhatsApp
-                    </a>
-                <button class="cart-btn" onclick="addToCart('Aluminium Awning Window','WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg', 4800)">
-                    Add to Cart
-                </button>
-            </div>
-                <div>
-                    <img src="WhatsApp Image 2026-05-31 at 21.33.04 (6).jpeg" alt="Gallery Image">
-                        <h5>Aluminium French Door</h5>
-                    <p class="price">From R5200</p>
-                    <p>Elegant French door with a durable aluminium frame.<br> Ideal for living rooms, dining rooms, and any space that benefits from a classic look</p>
-                    <a href="https://wa.me/27637836366?text=Hi, I would like to order: [Product Name]" 
-                
-                        class="whatsapp-order-btn">
-                  🛒 Order via WhatsApp
-                </a>
-                <button class="cart-btn" onclick="addToCart('Aluminium French Door','WhatsApp Image 2026-05-31 at 21.33.04 (6).jpeg',5200)">
-                    Add to Cart
-                </button>
-                </div>
-            <div>
-                 <img src="WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg" alt="Aluminium Door Example">
-                     <h5>Aluminium Awning Window</h5>
-                     <p class="price">From R4800</p>
-                 <p>Stylish awning window with a sturdy aluminium frame.<br> Perfect for bathrooms, kitchens, and areas that require ventilation</p>
-                    <a href="https://wa.me/27637836366?text=Hi, I would like to order: [Product Name]" 
-                
-                        class="whatsapp-order-btn">
-                    🛒 Order via WhatsApp
-                    </a>
-                <button class="cart-btn" onclick="addToCart('Aluminium Awning Window','WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg',4800)">
-                    Add to Cart
-                </button>
-            </div>
-                <div>
-                    <img src="WhatsApp Image 2026-05-31 at 21.33.04 (6).jpeg" alt="Gallery Image">
-                        <h5>Aluminium French Door</h5>
-                    <p class="price">From R5200</p>
-                    <p>Elegant French door with a durable aluminium frame.<br> Ideal for living rooms, dining rooms, and any space that benefits from a classic look</p>
-                    <a href="https://wa.me/27637836366?text=Hi, I would like to order: [Product Name]" 
-                    
-                        class="whatsapp-order-btn">
-                  🛒 Order via WhatsApp
-                </a>
-                <button class="cart-btn" onclick="addToCart('Aluminium French Door','WhatsApp Image 2026-05-31 at 21.33.04 (6).jpeg',5200)">
-                    Add to Cart
-                </button>
-                </div>
-                        <div>
-                 <img src="WhatsApp Image 2026-05-31 at 21.33.03 (1).jpeg " alt="Aluminium Door Example">
-                 <h5>Aluminium Sliding Door</h5>
-                 <p class="price">From R4800</p>
-                 <p>Smooth-gliding sliding door with a slim aluminium frame.<br> Perfect for patios, balconies, and indoor-outdoor living spaces</p>
-                <a href="https://wa.me/27637836366?text=Hi, I would like to order: [Product Name]" 
-        
-                    class="whatsapp-order-btn">
-                  🛒 Order via WhatsApp
-                </a>
-                <button class="cart-btn" onclick="addToCart('Aluminium Sliding Door','WhatsApp Image 2026-05-31 at 21.33.03 (1).jpeg',4800)">
-                    Add to Cart
-                </button>
-           </div>
-
-                <div>
-                    <img src="WhatsApp Image 2026-05-31 at 21.33.04 (2).jpeg" alt="Gallery Image">
-                        <h5>Aluminium Casement Window</h5>
-                    <p class="price">From R4800</p>
-                    <p>Classic casement window with a durable aluminium frame.<br> Ideal for bedrooms, kitchens, and living rooms</p>
-                     <a href="https://wa.me/27637836366?text=Hi, I would like to order: [Product Name]" 
-            
-                    class="whatsapp-order-btn">
-                  🛒 Order via WhatsApp
-                </a>
-                <button class="cart-btn" onclick="addToCart('Aluminium Casement Window','WhatsApp Image 2026-05-31 at 21.33.04 (2).jpeg',4800)">
-                    Add to Cart
-                </button>
-                </div>
-            <div>
-                <img src="WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg" alt="Gallery Image">
-                    <h5>Gate</h5>
-                    <p class="price">From R4800</p>
-                    <p>Space-saving bi-fold door with a sleek aluminium design.<br> Great for connecting indoor and outdoor areas while maximizing natural light</p>
-                    <a href="https://wa.me/27637836366?text=Hi, I would like to order: [Product Name]" 
-    
-                    class="whatsapp-order-btn">
-                  🛒 Order via WhatsApp
-                </a>
-                <button class="cart-btn" onclick="addToCart('Gate','WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg',4800)">
-                    Add to Cart
-                </button>
-            </div>
-
-                <div>
-                    <img src="WhatsApp Image 2026-05-31 at 21.33.04 (1).jpeg" alt="Gallery Image">
-                        <h5>Aluminium Bi-Fold Door</h5>
-                    <p class="price">From R4800</p>
-                    <p>Stylish awning window with a sturdy aluminium frame.<br> Perfect for bathrooms, kitchens, and areas that require ventilation</p>
-                    <a href="https://wa.me/27637836366?text=Hi, I would like to order: [Product Name]" 
-                
-                    class="whatsapp-order-btn">
-                  🛒 Order via WhatsApp
-                </a>
-                <button class="cart-btn" onclick="addToCart('Aluminium Bi-Fold Door','WhatsApp Image 2026-05-31 at 21.33.04 (1).jpeg',4800 )">
-                    Add to Cart
-                </button>
-                </div>
-            </section>
-        </div>
-
+    <!-- Page Banner -->
+    <div class="page-banner">
+        <h1>Our Products</h1>
+        <p>All products are custom-made to your exact measurements. Prices shown are starting prices — contact us for a personalised quote.</p>
     </div>
+
+    <section class="products-preview">
+        <div class="product-images">
+
+            <!-- 1. Aluminium Sliding Door -->
+            <div class="product-card">
+                <img src="WhatsApp Image 2026-05-31 at 21.33.03 (1).jpeg" alt="Aluminium Sliding Door">
+                <div class="product-card-body">
+                    <h3>Aluminium Sliding Door</h3>
+                    <p class="price">From R4,800</p>
+                    <p>Smooth-gliding sliding door with a slim aluminium frame. Perfect for patios, balconies, and indoor-outdoor living spaces.</p>
+                </div>
+                <div class="product-card-actions">
+                    <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Sliding%20Door"
+                       class="whatsapp-order-btn" target="_blank">
+                        💬 Order via WhatsApp
+                    </a>
+                    <button class="cart-btn"
+                        onclick="addToCart('Aluminium Sliding Door', 'WhatsApp Image 2026-05-31 at 21.33.03 (1).jpeg', 4800)">
+                        🛒 Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. Aluminium Casement Window -->
+            <div class="product-card">
+                <img src="WhatsApp Image 2026-05-31 at 21.33.04 (2).jpeg" alt="Aluminium Casement Window">
+                <div class="product-card-body">
+                    <h3>Aluminium Casement Window</h3>
+                    <p class="price">From R1,800</p>
+                    <p>Classic side-hinged window with a durable aluminium frame. Ideal for bedrooms, kitchens, and living rooms.</p>
+                </div>
+                <div class="product-card-actions">
+                    <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Casement%20Window"
+                       class="whatsapp-order-btn" target="_blank">
+                        💬 Order via WhatsApp
+                    </a>
+                    <button class="cart-btn"
+                        onclick="addToCart('Aluminium Casement Window', 'WhatsApp Image 2026-05-31 at 21.33.04 (2).jpeg', 1800)">
+                        🛒 Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. Gate -->
+            <div class="product-card">
+                <img src="WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg" alt="Aluminium Gate">
+                <div class="product-card-body">
+                    <h3>Aluminium Gate</h3>
+                    <p class="price">From R2,500</p>
+                    <p>Sturdy and elegant aluminium gate. Ideal for securing your property while maintaining a sleek, modern appearance.</p>
+                </div>
+                <div class="product-card-actions">
+                    <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Gate"
+                       class="whatsapp-order-btn" target="_blank">
+                        💬 Order via WhatsApp
+                    </a>
+                    <button class="cart-btn"
+                        onclick="addToCart('Aluminium Gate', 'WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg', 2500)">
+                        🛒 Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- 4. Aluminium Bi-Fold Door -->
+            <div class="product-card">
+                <img src="WhatsApp Image 2026-05-31 at 21.33.04 (1).jpeg" alt="Aluminium Bi-Fold Door">
+                <div class="product-card-body">
+                    <h3>Aluminium Bi-Fold Door</h3>
+                    <p class="price">From R3,200</p>
+                    <p>Space-saving bi-fold door with a sleek aluminium design. Great for connecting indoor and outdoor areas while maximising natural light.</p>
+                </div>
+                <div class="product-card-actions">
+                    <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Bi-Fold%20Door"
+                       class="whatsapp-order-btn" target="_blank">
+                        💬 Order via WhatsApp
+                    </a>
+                    <button class="cart-btn"
+                        onclick="addToCart('Aluminium Bi-Fold Door', 'WhatsApp Image 2026-05-31 at 21.33.04 (1).jpeg', 3200)">
+                        🛒 Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- 5. Aluminium Awning Window -->
+            <div class="product-card">
+                <img src="WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg" alt="Aluminium Awning Window">
+                <div class="product-card-body">
+                    <h3>Aluminium Awning Window</h3>
+                    <p class="price">From R1,500</p>
+                    <p>Top-hinged awning window with a sturdy aluminium frame. Perfect for bathrooms, kitchens, and areas that need ventilation even in rain.</p>
+                </div>
+                <div class="product-card-actions">
+                    <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Awning%20Window"
+                       class="whatsapp-order-btn" target="_blank">
+                        💬 Order via WhatsApp
+                    </a>
+                    <button class="cart-btn"
+                        onclick="addToCart('Aluminium Awning Window', 'WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg', 1500)">
+                        🛒 Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- 6. Aluminium French Door -->
+            <div class="product-card">
+                <img src="WhatsApp Image 2026-05-31 at 21.33.04 (6).jpeg" alt="Aluminium French Door">
+                <div class="product-card-body">
+                    <h3>Aluminium French Door</h3>
+                    <p class="price">From R5,200</p>
+                    <p>Elegant double-leaf French door with a durable aluminium frame. Ideal for living rooms, dining rooms, and any space that benefits from a classic look.</p>
+                </div>
+                <div class="product-card-actions">
+                    <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20French%20Door"
+                       class="whatsapp-order-btn" target="_blank">
+                        💬 Order via WhatsApp
+                    </a>
+                    <button class="cart-btn"
+                        onclick="addToCart('Aluminium French Door', 'WhatsApp Image 2026-05-31 at 21.33.04 (6).jpeg', 5200)">
+                        🛒 Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- 7. Aluminium Stack Door -->
+            <div class="product-card">
+                <img src="WhatsApp Image 2026-05-31 at 21.33.03 (2).jpeg" alt="Aluminium Stack Door">
+                <div class="product-card-body">
+                    <h3>Aluminium Stack Door</h3>
+                    <p class="price">From R4,200</p>
+                    <p>Multi-panel stacking door system that opens wide to create a seamless connection between indoor and outdoor living areas.</p>
+                </div>
+                <div class="product-card-actions">
+                    <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Stack%20Door"
+                       class="whatsapp-order-btn" target="_blank">
+                        💬 Order via WhatsApp
+                    </a>
+                    <button class="cart-btn"
+                        onclick="addToCart('Aluminium Stack Door', 'WhatsApp Image 2026-05-31 at 21.33.03 (2).jpeg', 4200)">
+                        🛒 Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- 8. Aluminium Fixed Window -->
+            <div class="product-card">
+                <img src="WhatsApp Image 2026-05-31 at 21.33.03 (3).jpeg" alt="Aluminium Fixed Window">
+                <div class="product-card-body">
+                    <h3>Aluminium Fixed Window</h3>
+                    <p class="price">From R900</p>
+                    <p>Non-opening fixed window with a clean aluminium frame. Perfect for maximising natural light in any room without ventilation requirements.</p>
+                </div>
+                <div class="product-card-actions">
+                    <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Fixed%20Window"
+                       class="whatsapp-order-btn" target="_blank">
+                        💬 Order via WhatsApp
+                    </a>
+                    <button class="cart-btn"
+                        onclick="addToCart('Aluminium Fixed Window', 'WhatsApp Image 2026-05-31 at 21.33.03 (3).jpeg', 900)">
+                        🛒 Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- 9. Patio Door -->
+            <div class="product-card">
+                <img src="WhatsApp Image 2026-05-31 at 21.33.03 (4).jpeg" alt="Aluminium Patio Door">
+                <div class="product-card-body">
+                    <h3>Aluminium Patio Door</h3>
+                    <p class="price">From R3,800</p>
+                    <p>Wide-opening patio door designed for outdoor entertainment areas. Durable, weather-resistant aluminium frame with smooth operation.</p>
+                </div>
+                <div class="product-card-actions">
+                    <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Patio%20Door"
+                       class="whatsapp-order-btn" target="_blank">
+                        💬 Order via WhatsApp
+                    </a>
+                    <button class="cart-btn"
+                        onclick="addToCart('Aluminium Patio Door', 'WhatsApp Image 2026-05-31 at 21.33.03 (4).jpeg', 3800)">
+                        🛒 Add to Cart
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/27637836366" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+        💬
+    </a>
+
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            text-decoration: none;
+            z-index: 999;
+            transition: 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            background: #128C7E;
+            transform: scale(1.1);
+        }
+    </style>
 
     <footer>
         <p>&copy; 2025 Keys Of Africa. All Rights Reserved.</p>
     </footer>
-    <a href="https://wa.me/27637836366"
-class="floating-whatsapp">
-💬
-</a>
 
 </body>
 </html>
