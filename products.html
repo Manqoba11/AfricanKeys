@@ -130,7 +130,6 @@
 </header>
     <!-- Page Banner -->
     <div class="page-banner">
-        <section class="products-preview">
 
         <div class="product-toolbar">
     <input
@@ -138,8 +137,45 @@
         id="searchInput"
         placeholder="🔍 Search products..."
     >
+</div><div class="category-filter">
+    <button class="filter-btn active" data-category="all">All</button>
+    <button class="filter-btn" data-category="doors">Doors</button>
+    <button class="filter-btn" data-category="windows">Windows</button>
+    <button class="filter-btn" data-category="gates">Gates</button>
 </div>
-    </section>
+<script>
+const filterButtons = document.querySelectorAll(".filter-btn");
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        filterButtons.forEach(btn =>
+            btn.classList.remove("active"));
+
+        button.classList.add("active");
+
+        const category = button.dataset.category;
+
+        document.querySelectorAll(".searchable")
+        .forEach(product => {
+
+            if (
+                category === "all" ||
+                product.dataset.category === category
+            ) {
+                product.style.display = "flex";
+            } else {
+                product.style.display = "none";
+            }
+
+        });
+
+    });
+
+});
+</script>
+    
         <h1>Our Products</h1>
         <p>All products are custom-made to your exact measurements. Prices shown are starting prices — contact us for a personalised quote.</p>
     </div>
@@ -148,7 +184,7 @@
         <div class="product-images">
 
             <!-- 1. Aluminium Sliding Door -->
-            <div class="product-card searchable">
+            <div class="product-card searchable" data-category="gates">
             <img src="WhatsApp Image 2026-05-31 at 21.33.03 (1).jpeg" alt="Aluminium Sliding Door">
                 <div class="product-card-body">
                     <h3>Aluminium Sliding Door</h3>
@@ -160,170 +196,287 @@
                        class="whatsapp-order-btn" target="_blank">
                         💬 Order via WhatsApp
                     </a>
-                    <button class="cart-btn"
-                        onclick="addToCart('Aluminium Sliding Door', 'WhatsApp Image 2026-05-31 at 21.33.03 (1).jpeg', 4800)">
-                        🛒 Add to Cart
-                    </button>
+                    <div class="features">
+                         <p>✔ Premium Aluminium</p>
+                         <p>✔ Made to Measure</p>
+                         <p>✔ Professional Installation</p>
+                        <p>✔ 5-Year Workmanship Guarantee</p>
+                    </div>
+
+            <button id="addCartBtn" class="addCartBtn">
+                🛒 Add to Cart
+            </button>
+
+<br>
+
+
+                    <a href="product.html?id=1" class="view-btn">
+                      View Details
+                    </a>
                 </div>
             </div>
 
             <!-- 2. Aluminium Casement Window -->
-            <div class="product-card searchable">
+            <div class="product-card searchable" data-category="windows">
                 <img src="WhatsApp Image 2026-05-31 at 21.33.04 (2).jpeg" alt="Aluminium Casement Window">
                 <div class="product-card-body">
                     <h3>Aluminium Casement Window</h3>
                     <p class="price">From R1,800</p>
                     <p>Classic side-hinged window with a durable aluminium frame. Ideal for bedrooms, kitchens, and living rooms.</p>
                 </div>
-                <div class="product-card searchable">
+                <div class="product-card searchable" data-category="windows">
                     <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Casement%20Window"
                        class="whatsapp-order-btn" target="_blank">
                         💬 Order via WhatsApp
                     </a>
-                    <button class="cart-btn"
-                        onclick="addToCart('Aluminium Casement Window', 'WhatsApp Image 2026-05-31 at 21.33.04 (2).jpeg', 1800)">
-                        🛒 Add to Cart
-                    </button>
+                    <div class="features">
+    <p>✔ Premium Aluminium</p>
+    <p>✔ Made to Measure</p>
+    <p>✔ Professional Installation</p>
+    <p>✔ 5-Year Workmanship Guarantee</p>
+</div>
+
+<button id="addCartBtn" class="addCartBtn">
+    🛒 Add to Cart
+</button>
+
+<br>
+
+
+                    <a href="product.html?id=2" class="view-btn">
+                      View Details  
+                    </a>
                 </div>
             </div>
 
             <!-- 3. Gate -->
-            <div class="product-card searchable">
+            <div class="product-card searchable" data-category="gates">
                 <img src="WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg" alt="Aluminium Gate">
                 <div class="product-card-body">
                     <h3>Aluminium Gate</h3>
                     <p class="price">From R2,500</p>
                     <p>Sturdy and elegant aluminium gate. Ideal for securing your property while maintaining a sleek, modern appearance.</p>
                 </div>
-                <div class="product-card searchable">
+                <div class="product-card searchable" data-category="gates">
                     <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Gate"
                        class="whatsapp-order-btn" target="_blank">
                         💬 Order via WhatsApp
                     </a>
-                    <button class="cart-btn"
-                        onclick="addToCart('Aluminium Gate', 'WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg', 2500)">
-                        🛒 Add to Cart
-                    </button>
+                    <div class="features">
+    <p>✔ Premium Aluminium</p>
+    <p>✔ Made to Measure</p>
+    <p>✔ Professional Installation</p>
+    <p>✔ 5-Year Workmanship Guarantee</p>
+</div>
+
+<button id="addCartBtn" class="addCartBtn">
+    🛒 Add to Cart
+</button>
+
+<br>
+
+
+                    <a href="product.html?id=3" class="view-btn">
+                      View Details
+                    </a>
                 </div>
             </div>
 
             <!-- 4. Aluminium Bi-Fold Door -->
-            <div class="product-card searchable">
+            <div class="product-card searchable" data-category="doors">
                 <img src="WhatsApp Image 2026-05-31 at 21.33.04 (1).jpeg" alt="Aluminium Bi-Fold Door">
                 <div class="product-card-body">
                     <h3>Aluminium Bi-Fold Door</h3>
                     <p class="price">From R3,200</p>
                     <p>Space-saving bi-fold door with a sleek aluminium design. Great for connecting indoor and outdoor areas while maximising natural light.</p>
                 </div>
-                <div class="product-card searchable">
+                <div class="product-card searchable" data-category="doors">
                     <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Bi-Fold%20Door"
                        class="whatsapp-order-btn" target="_blank">
                         💬 Order via WhatsApp
                     </a>
-                    <button class="cart-btn"
-                        onclick="addToCart('Aluminium Bi-Fold Door', 'WhatsApp Image 2026-05-31 at 21.33.04 (1).jpeg', 3200)">
-                        🛒 Add to Cart
-                    </button>
+                   <div class="features">
+    <p>✔ Premium Aluminium</p>
+    <p>✔ Made to Measure</p>
+    <p>✔ Professional Installation</p>
+    <p>✔ 5-Year Workmanship Guarantee</p>
+</div>
+
+<button id="addCartBtn" class="addCartBtn">
+    🛒 Add to Cart
+</button>
+
+<br>
+
+
+                    <a href="product.html?id=4" class="view-btn">
+                      View Details
+                    </a>
                 </div>
             </div>
 
             <!-- 5. Aluminium Awning Window -->
-            <div class="product-card searchable">
+            <div class="product-card searchable" data-category="windows">
                 <img src="WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg" alt="Aluminium Awning Window">
                 <div class="product-card-body">
                     <h3>Aluminium Awning Window</h3>
                     <p class="price">From R1,500</p>
                     <p>Top-hinged awning window with a sturdy aluminium frame. Perfect for bathrooms, kitchens, and areas that need ventilation even in rain.</p>
                 </div>
-                <div class="product-card searchable">
+                <div class="product-card searchable" data-category="windows">
                     <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Awning%20Window"
                        class="whatsapp-order-btn" target="_blank">
                         💬 Order via WhatsApp
                     </a>
-                    <button class="cart-btn"
-                        onclick="addToCart('Aluminium Awning Window', 'WhatsApp Image 2026-05-31 at 21.33.04 (3).jpeg', 1500)">
-                        🛒 Add to Cart
-                    </button>
+                    <div class="features">
+    <p>✔ Premium Aluminium</p>
+    <p>✔ Made to Measure</p>
+    <p>✔ Professional Installation</p>
+    <p>✔ 5-Year Workmanship Guarantee</p>
+</div>
+
+<button id="addCartBtn" class="addCartBtn">
+    🛒 Add to Cart
+</button>
+
+<br>
+
+
+                    <a href="product.html?id=5" class="view-btn">
+                      View Details
+                    </a>
                 </div>
             </div>
 
             <!-- 6. Aluminium French Door -->
-            <div class="product-card searchable">
+            <div class="product-card searchable" data-category="doors">
                 <img src="WhatsApp Image 2026-05-31 at 21.33.04 (6).jpeg" alt="Aluminium French Door">
                 <div class="product-card-body">
                     <h3>Aluminium French Door</h3>
                     <p class="price">From R5,200</p>
                     <p>Elegant double-leaf French door with a durable aluminium frame. Ideal for living rooms, dining rooms, and any space that benefits from a classic look.</p>
                 </div>
-                <div class="product-card searchable">
+                <div class="product-card searchable" data-category="doors">
                     <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20French%20Door"
                        class="whatsapp-order-btn" target="_blank">
                         💬 Order via WhatsApp
                     </a>
-                    <button class="cart-btn"
-                        onclick="addToCart('Aluminium French Door', 'WhatsApp Image 2026-05-31 at 21.33.04 (6).jpeg', 5200)">
-                        🛒 Add to Cart
-                    </button>
+                    <div class="features">
+    <p>✔ Premium Aluminium</p>
+    <p>✔ Made to Measure</p>
+    <p>✔ Professional Installation</p>
+    <p>✔ 5-Year Workmanship Guarantee</p>
+</div>
+
+<button id="addCartBtn" class="addCartBtn">
+    🛒 Add to Cart
+</button>
+
+<br>
+
+
+                    <a href="product.html?id=6" class="view-btn">
+                      View Details
+                    </a>
                 </div>
             </div>
 
             <!-- 7. Aluminium Stack Door -->
-            <div class="product-card searchable">
+            <div class="product-card searchable" data-category="doors">
                 <img src="WhatsApp Image 2026-05-31 at 21.33.03 (2).jpeg" alt="Aluminium Stack Door">
                 <div class="product-card-body">
                     <h3>Aluminium Stack Door</h3>
                     <p class="price">From R4,200</p>
                     <p>Multi-panel stacking door system that opens wide to create a seamless connection between indoor and outdoor living areas.</p>
                 </div>
-                <div class="product-card searchable">
+                <div class="product-card searchable" data-category="doors">
                     <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Stack%20Door"
                        class="whatsapp-order-btn" target="_blank">
                         💬 Order via WhatsApp
                     </a>
-                    <button class="cart-btn"
-                        onclick="addToCart('Aluminium Stack Door', 'WhatsApp Image 2026-05-31 at 21.33.03 (2).jpeg', 4200)">
-                        🛒 Add to Cart
-                    </button>
+                    <div class="features">
+    <p>✔ Premium Aluminium</p>
+    <p>✔ Made to Measure</p>
+    <p>✔ Professional Installation</p>
+    <p>✔ 5-Year Workmanship Guarantee</p>
+</div>
+
+<button id="addCartBtn" class="addCartBtn">
+    🛒 Add to Cart
+</button>
+
+<br>
+
+
+                    <a href="product.html?id=7" class="view-btn">
+                      View Details
+                    </a>
                 </div>
             </div>
 
             <!-- 8. Aluminium Fixed Window -->
-            <div class="product-card searchable">
+            <div class="product-card searchable" data-category="windows">
                 <img src="WhatsApp Image 2026-05-31 at 21.33.03 (3).jpeg" alt="Aluminium Fixed Window">
                 <div class="product-card-body">
                     <h3>Aluminium Fixed Window</h3>
                     <p class="price">From R900</p>
                     <p>Non-opening fixed window with a clean aluminium frame. Perfect for maximising natural light in any room without ventilation requirements.</p>
                 </div>
-                <div class="product-card searchable">
+                <div class="product-card searchable" data-category="windows">
                     <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Fixed%20Window"
                        class="whatsapp-order-btn" target="_blank">
                         💬 Order via WhatsApp
                     </a>
-                    <button class="cart-btn"
-                        onclick="addToCart('Aluminium Fixed Window', 'WhatsApp Image 2026-05-31 at 21.33.03 (3).jpeg', 900)">
-                        🛒 Add to Cart
-                    </button>
+                    <div class="features">
+    <p>✔ Premium Aluminium</p>
+    <p>✔ Made to Measure</p>
+    <p>✔ Professional Installation</p>
+    <p>✔ 5-Year Workmanship Guarantee</p>
+</div>
+
+<button id="addCartBtn" class="addCartBtn">
+    🛒 Add to Cart
+</button>
+
+<br>
+
+
+                    <a href="product.html?id=8" class="view-btn">
+                      View Details
+                    </a>
                 </div>
             </div>
 
             <!-- 9. Patio Door -->
-            <div class="product-card searchable">
+            <div class="product-card searchable" data-category="doors">
                 <img src="WhatsApp Image 2026-05-31 at 21.33.03 (4).jpeg" alt="Aluminium Patio Door">
                 <div class="product-card-body">
                     <h3>Aluminium Patio Door</h3>
                     <p class="price">From R3,800</p>
                     <p>Wide-opening patio door designed for outdoor entertainment areas. Durable, weather-resistant aluminium frame with smooth operation.</p>
                 </div>
-                <div class="product-card searchable">
+                <div class="product-card searchable" data-category="doors">
                     <a href="https://wa.me/27637836366?text=Hi%20Keys%20Of%20Africa%2C%20I%20would%20like%20to%20order%3A%20Aluminium%20Patio%20Door"
                        class="whatsapp-order-btn" target="_blank">
                         💬 Order via WhatsApp
                     </a>
-                    <button class="cart-btn"
-                        onclick="addToCart('Aluminium Patio Door', 'WhatsApp Image 2026-05-31 at 21.33.03 (4).jpeg', 3800)">
-                        🛒 Add to Cart
-                    </button>
+                    <div class="features">
+    <p>✔ Premium Aluminium</p>
+    <p>✔ Made to Measure</p>
+    <p>✔ Professional Installation</p>
+    <p>✔ 5-Year Workmanship Guarantee</p>
+</div>
+
+<button id="addCartBtn" class="addCartBtn">
+    🛒 Add to Cart
+</button>
+
+<br>
+
+
+                    <a href="product.html?id=9" class="view-btn">
+                      View Details
+                    </a>
                 </div>
             </div>
 
