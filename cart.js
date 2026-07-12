@@ -210,3 +210,49 @@ document.addEventListener("DOMContentLoaded", () => {
         hidden.value = buildOrderSummary();
     });
 });
+
+// ============================
+// TERMS & CONDITIONS
+// ============================
+
+function toggleButtons() {
+    const checkbox = document.getElementById("tcCheckbox");
+    const acceptBtn = document.getElementById("acceptBtn");
+
+    if (checkbox && acceptBtn) {
+        acceptBtn.disabled = !checkbox.checked;
+    }
+}
+
+function hasAcceptedTCs() {
+    const email = localStorage.getItem("userEmail");
+    if (!email) return false;
+
+    return localStorage.getItem("tcsAccepted_" + email) === "true";
+}
+
+function acceptTerms() {
+    const email = localStorage.getItem("userEmail");
+
+    if (!email) {
+        alert("Please log in first.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    localStorage.setItem("tcsAccepted_" + email, "true");
+
+    alert("Thank you for accepting the Terms & Conditions.");
+
+    window.location.href = "index.html";
+}
+
+function declineTerms() {
+    alert("You must accept the Terms & Conditions to continue.");
+
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
+
+    window.location.href = "login.html";
+}
