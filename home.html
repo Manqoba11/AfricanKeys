@@ -32,25 +32,26 @@
   const analytics = getAnalytics(app);
 </script>
 
-    <header> 
-        <div class="logo">
-            <h1>Keys Of Africa</h1>
-        </div>  
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li id="signupLink"><a href="signup.html">Sign Up</a></li>
-            <li id="logoutLink" style="display:none;"><a href="#" onclick="logout()">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
-    
+<header>
+    <div class="logo"><h1>Keys Of Africa</h1></div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="Ts&Cs.html">Terms & Conditions</a></li>
+            <li><a href="cart.html">🛒 Cart</a></li>
+            <li id="nav-login"><a href="login.html">Login</a></li>
+            <li id="nav-signup"><a href="signup.html">Sign Up</a></li>
+            <li id="nav-logout" style="display:none;">
+                <a href="#" onclick="logout()">Logout</a>
+            </li>
+            <li id="nav-greeting" style="color:#d4af37;font-weight:600;padding:0 6px;list-style:none;"></li>
+        </ul>
+    </nav>
+</header>
     <section class="hero">
         <img src="WhatsApp Image 2026-05-31 at 21.33.03 (1).jpeg" alt="Aluminium Door">
         <div class="hero-text">
@@ -115,5 +116,7 @@
 class="floating-whatsapp">
 💬
 </a>
+        
+<script type="module" src="auth.js"></script>
 </body>
 </html>
