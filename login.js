@@ -32,7 +32,17 @@ form.addEventListener("submit", async function (e) {
 
         });
 
-        const data = await response.json();
+        const text = await response.text();
+console.log(text);
+
+let data;
+
+try {
+    data = JSON.parse(text);
+} catch (err) {
+    console.error("Server returned:", text);
+    throw new Error("Server did not return JSON.");
+}
 
         if (!response.ok) {
 
