@@ -1,34 +1,73 @@
+const form = document.getElementById("loginForm");
 
-import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+form.addEventListener("submit", async function (e) {
 
-onAuthStateChanged(auth, (user) => {
+    e.preventDefault();
 
-    if(user){
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
 
-        localStorage.setItem(
-            "loggedIn",
-            "true"
-        );
+    const errEl = document.getElementById("login-error");
+    const btn = document.getElementById("login-btn");
+
+    errEl.textContent = "";
+
+    btn.disabled = true;
+    btn.textContent = "Logging in...";
+
+    try {
+
+        const response = await fetch("http://localhost:3000/api/auth/login", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                email,
+                password
+            })
+
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            errEl.textContent = data.message;
+
+            btn.disabled = false;
+            btn.textContent = "Login";
+
+            return;
+
+        }
+
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("userEmail", data.user.email);
+        localStorage.setItem("userName", data.user.fullname);
+
+        alert("Login successful!");
+
+        const tcsKey = "tcsAccepted_" + data.user.email;
+
+        if (localStorage.getItem(tcsKey) === "true") {
+            window.location.href = "index.html";
+        } else {
+            window.location.href = "Ts&Cs.html";
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        errEl.textContent = "Unable to connect to server.";
+
+        btn.disabled = false;
+        btn.textContent = "Login";
 
     }
 
-}); 
-
-signInWithEmailAndPassword(auth, email, password)
-.then((userCredential) => {
-
-    localStorage.setItem("loggedIn", "true");
-
-    localStorage.setItem(
-        "userEmail",
-        userCredential.user.email
-    );
-
-    alert("Login successful!");
-
-    window.location.href = "Ts&Cs.html";
-
-})
+});
