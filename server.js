@@ -4,17 +4,21 @@ require("dotenv").config();
 
 const app = express();
 
-// Import files
+// Database
 const db = require("./config/db");
+
+// Routes
 const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// Routes
+// API Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
