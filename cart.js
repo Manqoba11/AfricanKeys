@@ -17,7 +17,7 @@ function addToCart(id,name, image, price) {
     price = Number(price);
 
     // Check if item already in cart
-    const existing = cart.find(i => i.name === name);
+    const existing = cart.find(i => i.id === id);
     if (existing) {
         existing.qty = (existing.qty || 1) + 1;
     } else {
