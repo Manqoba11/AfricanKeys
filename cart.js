@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         hidden.value = buildOrderSummary();
     });
-});
+
 
 // ============================
 // TERMS & CONDITIONS
