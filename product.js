@@ -121,6 +121,7 @@ if (product) {
         btn.onclick = function(){
 
             addToCart(
+                product.id,
                 product.name,
                 product.image,
                 product.price
