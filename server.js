@@ -1,17 +1,34 @@
 const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 
-console.log("THIS IS MY SERVER FILE");
+// Database
+require("./config/db");
 
+// Routes
+const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
+const orderRoutes = require("./routes/orderRoutes"); // if you've created it
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.static(__dirname));
+
+// API Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes); // comment this out if orderRoutes.js doesn't exist yet
+
+// Test Route
 app.get("/", (req, res) => {
-    res.send("ROOT WORKS");
+    res.send("African Keys API is running...");
 });
 
-app.get("/api/products", (req, res) => {
-    res.send("PRODUCTS WORK");
-});
+const PORT = 3000;
 
-app.listen(3000, () => {
-    console.log("SERVER RUNNING");
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

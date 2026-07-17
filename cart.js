@@ -13,7 +13,7 @@ function saveCart() {
 // ============================
 // ADD TO CART
 // ============================
-function addToCart(name, image, price) {
+function addToCart(id,name, image, price) {
     price = Number(price);
 
     // Check if item already in cart
@@ -21,7 +21,7 @@ function addToCart(name, image, price) {
     if (existing) {
         existing.qty = (existing.qty || 1) + 1;
     } else {
-        cart.push({ name, image, price, qty: 1 });
+        cart.push({ id,name, image, price, qty: 1 });
     }
 
     saveCart();
@@ -191,12 +191,66 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
     if (!form) return;
 
-    form.addEventListener("submit", (e) => {
-        if (cart.length === 0) {
-            e.preventDefault();
-            alert("⚠️ Your cart is empty! Please add products before placing an order.");
-            return;
-        }
+    form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+        alert("Please login first.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const total = cart.reduce((sum, item) =>
+        sum + item.price * item.qty, 0);
+
+    try {
+
+        const response = await fetch("http://localhost:3000/api/orders", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+
+                userId,
+                cart,
+                total
+
+            })
+
+        });
+
+        const data = await response.json();
+
+        alert(data.message);
+
+        cart = [];
+        saveCart();
+        updateCartUI();
+        updateCartBadge();
+
+    }
+
+    catch (err) {
+
+        console.error(err);
+
+        alert("Could not place order.");
+
+    }
+
+});
 
         // Inject order data into hidden field
         let hidden = document.getElementById("order");
