@@ -3,7 +3,16 @@ const userModel = require("../models/userModel");
 
 const signup = async (req, res) => {
 
-    const { fullname, email, password } = req.body;
+    
+    const {
+        fullname,
+        phone,
+        address,
+        suburb,
+        province,
+        postal_code,
+        email,
+        password} = req.body;
 
     if (!fullname || !email || !password) {
         return res.status(400).json({
@@ -16,9 +25,14 @@ const signup = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         userModel.createUser(
-            fullname,
-            email,
-            hashedPassword,
+                fullname,
+                phone,
+                address,
+                suburb,
+                province,
+                postal_code,
+                email,
+                hashedPassword,
             (err) => {
 
                 if (err) {

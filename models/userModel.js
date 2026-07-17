@@ -1,13 +1,33 @@
 const db = require("../config/db");
 
-const createUser = (fullname, email, password, callback) => {
+const createUser = (
+    fullname,
+    phone,
+    address,
+    suburb,
+    province,
+    postal_code,
+    email,
+    password,
+    callback
+) => {
 
     const sql = `
-        INSERT INTO users(fullname, email, password)
-        VALUES (?, ?, ?)
+        INSERT INTO users
+        (fullname, phone, address, suburb, province, postal_code, email, password)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(sql, [fullname, email, password], callback);
+    db.query(sql, [
+        fullname,
+        phone,
+        address,
+        suburb,
+        province,
+        postal_code,
+        email,
+        password
+    ], callback);
 };
 
 const findUserByEmail = (email, callback) => {
