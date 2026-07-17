@@ -1,4 +1,28 @@
-const form = document.getElementById("signupForm");
+
+const fullname =
+    document.getElementById("name").value + " " +
+    document.getElementById("surname").value;
+
+const phone =
+    document.getElementById("phone").value;
+
+const address =
+    document.getElementById("address").value;
+
+const suburb =
+    document.getElementById("suburb").value;
+
+const province =
+    document.getElementById("state").value;
+
+const postal_code =
+    document.getElementById("postal").value;
+
+const email =
+    document.getElementById("email").value;
+
+const password =
+    document.getElementById("password").value;const form = document.getElementById("signupForm");
 
 form.addEventListener("submit", async function (e) {
 
@@ -33,10 +57,15 @@ form.addEventListener("submit", async function (e) {
             },
 
             body: JSON.stringify({
-                fullname,
-                email,
-                password
-            })
+            fullname,
+            phone,
+            address,
+            suburb,
+            province,
+            postal_code,
+            email,
+            password
+        })
 
         });
 
