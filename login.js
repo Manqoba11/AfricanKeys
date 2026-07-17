@@ -54,11 +54,11 @@ try {
             return;
 
         }
-
-        localStorage.setItem("loggedIn", "true");
-        localStorage.setItem("userEmail", data.user.email);
-        localStorage.setItem("userName", data.user.fullname);
-
+localStorage.setItem("userId", data.user.id);
+localStorage.setItem("userName", data.user.fullname);
+localStorage.setItem("userEmail", data.user.email);
+localStorage.setItem("loggedIn", "true");
+       
         alert("Login successful!");
 
         const tcsKey = "tcsAccepted_" + data.user.email;
