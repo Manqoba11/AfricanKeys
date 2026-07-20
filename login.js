@@ -39,6 +39,7 @@ let data;
 
 try {
     data = JSON.parse(text);
+    console.log("Response:", data);
 } catch (err) {
     console.error("Server returned:", text);
     throw new Error("Server did not return JSON.");
@@ -80,12 +81,4 @@ localStorage.setItem("loggedIn", "true");
 
     }
 
-});
-res.json({
-    message: "Login successful!",
-    user: {
-        id: user.id,
-        fullname: user.fullname,
-        email: user.email
-    }
 });
