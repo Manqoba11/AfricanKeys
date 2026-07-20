@@ -187,6 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCartUI();
     updateCartBadge();
     updateWhatsApp();
+    updateNavigation(); 
 
     const form = document.querySelector("form");
     if (!form) return;
@@ -309,4 +310,39 @@ function declineTerms() {
     localStorage.removeItem("userName");
 
     window.location.href = "login.html";
+}
+function updateNavigation() {
+
+    const loggedIn = localStorage.getItem("loggedIn") === "true";
+
+    const login = document.getElementById("nav-login");
+    const signup = document.getElementById("nav-signup");
+    const account = document.getElementById("nav-account");
+
+    if (!login || !signup || !account) return;
+
+    if (loggedIn) {
+
+        login.style.display = "none";
+        signup.style.display = "none";
+        account.style.display = "block";
+
+    } else {
+
+        login.style.display = "block";
+        signup.style.display = "block";
+        account.style.display = "none";
+
+    }
+
+}
+function logout() {
+
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
+
+    window.location.href = "login.html";
+
 }
