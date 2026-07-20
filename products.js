@@ -8,7 +8,7 @@ fetch("http://localhost:4000/api/products")
 
             container.innerHTML += `
 
-            <div class="product-card searchable" data-category="${product.category.toLowerCase()}">
+            <div class="product-card searchable" data-category="">
 
                 <img src="${product.image}" alt="${product.name}">
 
