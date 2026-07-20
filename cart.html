@@ -27,10 +27,28 @@
             <li id="nav-signup">
                 <a href="signup.html">Sign Up</a>
             </li>
-            <li id="nav-account" style="display:none;">
-                <a href="account.html">My Account</a>
+            <li id="nav-account" class="account-menu" style="display:none;">
+                <a href="#">
+                    My Account ▼
+                </a>
+
+                <ul class="account-dropdown">
+
+                    <li>
+                        <a href="account.html">👤 My Profile</a>
+                    </li>
+
+                    <li>
+                        <a href="orders.html">📦 My Orders</a>
+                    </li>
+
+                    <li>
+                        <a href="#" onclick="logout()">🚪 Logout</a>
+                    </li>
+
+                </ul>
+
             </li>
- 
             <li id="nav-greeting" style="color:#d4af37;font-weight:600;padding:0 6px;list-style:none;"></li>
         </ul>
     </nav>
