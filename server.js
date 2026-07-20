@@ -15,8 +15,8 @@ const orderRoutes = require("./routes/orderRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 console.log(adminRoutes);
 
-app.get("/test-admin", (req, res) => {
-    res.send("Admin test works");
+app.get("/", (req, res) => {
+    res.send("THIS IS THE NEW SERVER");
 });
 
 // Middleware
