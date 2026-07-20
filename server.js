@@ -10,7 +10,7 @@ require("./config/db");
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
-const orderRoutes = require("./routes/orderRoutes"); // if you've created it
+const orderRoutes = require("./routes/orderRoutes"); 
 
 // Middleware
 app.use(cors());
@@ -20,7 +20,7 @@ app.use(express.static(__dirname));
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
-app.use("/api/orders", orderRoutes); // comment this out if orderRoutes.js doesn't exist yet
+app.use("/api/orders", orderRoutes); 
 
 // Test Route
 app.get("/", (req, res) => {

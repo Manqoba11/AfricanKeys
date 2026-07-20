@@ -59,3 +59,14 @@ const placeOrder = (req, res) => {
 module.exports = {
     placeOrder
 };
+
+exports.placeOrder = async (req, res) => {
+
+    console.log(req.body);
+
+    res.json({
+        success: true,
+        message: "Order received successfully."
+    });
+
+};
