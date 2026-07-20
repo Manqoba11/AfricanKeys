@@ -56,6 +56,7 @@ try {
 
         }
 localStorage.setItem("userId", data.user.id);
+console.log("Saved userId:", localStorage.getItem("userId"));
 localStorage.setItem("userName", data.user.fullname);
 localStorage.setItem("userEmail", data.user.email);
 localStorage.setItem("loggedIn", "true");
