@@ -1527,3 +1527,7 @@ body{
     margin-bottom: 10px;
     text-align: center;
 }
+.account-dropdown {
+    position: relative;
+    display: inline-block;
+}
