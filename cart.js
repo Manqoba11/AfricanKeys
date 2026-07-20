@@ -336,13 +336,17 @@ function updateNavigation() {
     }
 
 }
-function logout() {
+function logout(){
 
-    localStorage.removeItem("loggedIn");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userEmail");
+    if(confirm("Are you sure you want to logout?")){
 
-    window.location.href = "login.html";
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userEmail");
+
+        window.location.href="login.html";
+
+    }
 
 }
