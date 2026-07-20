@@ -81,3 +81,11 @@ localStorage.setItem("loggedIn", "true");
     }
 
 });
+res.json({
+    message: "Login successful!",
+    user: {
+        id: user.id,
+        fullname: user.fullname,
+        email: user.email
+    }
+});
