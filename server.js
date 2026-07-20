@@ -7,11 +7,15 @@ const app = express();
 // Database
 require("./config/db");
 
+
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes"); 
 const adminRoutes = require("./routes/adminRoutes");
+app.get("/test-admin", (req, res) => {
+    res.send("Admin test works");
+});
 
 // Middleware
 app.use(cors());
