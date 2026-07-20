@@ -9,6 +9,7 @@ require("./config/db");
 
 
 // Routes
+const adminAuthRoutes = require("./routes/adminAuthRoutes");
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes"); 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 // API Routes
+app.use("/api/admin-auth", adminAuthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes); 
