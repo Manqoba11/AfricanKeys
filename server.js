@@ -13,6 +13,8 @@ const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes"); 
 const adminRoutes = require("./routes/adminRoutes");
+console.log(adminRoutes);
+
 app.get("/test-admin", (req, res) => {
     res.send("Admin test works");
 });
