@@ -11,6 +11,7 @@ require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes"); 
+const adminRoutes = require("./routes/adminRoutes");
 
 // Middleware
 app.use(cors());
@@ -21,6 +22,7 @@ app.use(express.static(__dirname));
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes); 
+app.use("/api/admin", adminRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
