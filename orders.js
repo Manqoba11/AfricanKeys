@@ -3,8 +3,7 @@
 // from localStorage.
 // ======================================
 
-const userId = localStorage.getItem("userId");
-
+const userId = localStorage.getItem("userId");//Go to the browser's local storage and get the ID of the logged-in user.
 
 // If the user is not logged in,
 // send them to the login page.
@@ -16,8 +15,6 @@ if (!userId) {
     window.location.href = "login.html";
 
 }
-
-
 // ======================================
 // Ask the server for this user's orders.
 // ======================================
