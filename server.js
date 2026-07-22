@@ -2,8 +2,22 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
+
+//const express = require("express");
 const app = express();
 
+// Middleware
+app.use(express.json());
+
+// Route
+app.get("/hello", (req, res) => {
+    res.send("HELLO MANQOBA");
+});
+
+// Start server (THIS MUST BE LAST)
+app.listen(4000, () => {
+    console.log("Server running...");
+});
 // Database
 require("./config/db");
 
@@ -30,9 +44,7 @@ app.use(express.static(__dirname));
 app.use("/api/admin-auth", adminAuthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
-app.get("/hello", (req, res) => {
-    res.send("Hello from server");
-});
+
 app.use("/api/orders", orderRoutes);   // <-- ADD THIS
 app.use("/api/admin", adminRoutes);
 // Test Route
