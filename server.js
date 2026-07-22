@@ -29,6 +29,7 @@ app.use(express.static(__dirname));
 app.use("/api/admin-auth", adminAuthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
+console.log("Loading order routes...");
 app.use("/api/orders", orderRoutes); 
 app.use("/api/admin", adminRoutes);
 

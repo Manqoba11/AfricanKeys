@@ -9,6 +9,8 @@ const orderModel = require("../models/orderModel"); //require() is used to impor
 // ==================================================
 const getUserOrders = (req, res) => {
 
+    console.log("getUserOrders called");
+    console.log(req.params.userId);
     // Read the user ID from the URL.
     //
     // Example:

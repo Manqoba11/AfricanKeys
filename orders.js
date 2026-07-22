@@ -3,9 +3,9 @@
 // from localStorage.
 // ======================================
 
-const userId = localStorage.getItem("userId");//Go to the browser's local storage and get the ID of the logged-in user.
+const userId = localStorage.getItem("userId");// check if userId has logged in using id saved in local storage. If not, redirect to login page.
 
-// If the user is not logged in,
+// If there is no logged-in user,
 // send them to the login page.
 
 if (!userId) {
@@ -15,6 +15,14 @@ if (!userId) {
     window.location.href = "login.html";
 
 }
+
+// ======================================
+// Get the container where the orders
+// will be displayed.
+// ======================================
+
+const container = document.getElementById("ordersContainer");
+
 // ======================================
 // Ask the server for this user's orders.
 // ======================================
@@ -26,5 +34,39 @@ fetch(`http://localhost:4000/api/orders/user/${userId}`)
 .then(orders => {
 
     console.log(orders);
+
+    // If the user has never placed an order
+    if (orders.length === 0) {
+
+        container.innerHTML = "<h3>No orders found.</h3>";
+
+        return;
+
+    }
+
+    // Loop through every order
+    orders.forEach(order => {
+
+        container.innerHTML += `
+
+        <div class="order-card">
+
+            <h3>Order #${order.id}</h3>
+
+            <p><strong>Total:</strong> R${order.total}</p>
+
+            <p><strong>Date:</strong> ${order.created_at}</p>
+
+        </div>
+
+        `;
+
+    });
+
+})
+
+.catch(err => {
+
+    console.error(err);
 
 });
