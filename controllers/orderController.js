@@ -70,3 +70,20 @@ exports.placeOrder = async (req, res) => {
     });
 
 };
+const orderModel = require("../models/orderModel");
+
+const getUserOrders = (req, res) => {
+
+    const userId = req.params.userId;
+
+    orderModel.getOrdersByUser(userId, (err, results) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json(results);
+
+    });
+
+};

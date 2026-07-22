@@ -25,3 +25,21 @@ module.exports = {
     createOrder,
     addOrderItem
 };
+const db = require("../config/db");
+
+const getOrdersByUser = (userId, callback) => {
+
+    const sql = `
+        SELECT *
+        FROM orders
+        WHERE user_id = ?
+        ORDER BY created_at DESC
+    `;
+
+    db.query(sql, [userId], callback);
+
+};
+
+module.exports = {
+    getOrdersByUser
+};
