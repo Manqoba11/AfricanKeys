@@ -7,5 +7,6 @@ console.log("orderController =", orderController);
 console.log("placeOrder =", orderController.placeOrder);
 
 router.post("/", orderController.placeOrder);
+router.get("/user/:userId", orderController.getUserOrders);
 
 module.exports = router;

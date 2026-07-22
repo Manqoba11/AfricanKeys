@@ -1,6 +1,8 @@
 console.log("orderController loaded");
+
 const orderModel = require("../models/orderModel");
 
+// Place Order
 const placeOrder = (req, res) => {
 
     const { userId, cart, total } = req.body;
@@ -24,12 +26,10 @@ const placeOrder = (req, res) => {
         cart.forEach(item => {
 
             orderModel.addOrderItem(
-
                 orderId,
                 item.id,
                 item.qty,
                 item.price,
-
                 (err) => {
 
                     if (err) {
@@ -47,7 +47,6 @@ const placeOrder = (req, res) => {
                     }
 
                 }
-
             );
 
         });
@@ -56,22 +55,7 @@ const placeOrder = (req, res) => {
 
 };
 
-module.exports = {
-    placeOrder
-};
-
-exports.placeOrder = async (req, res) => {
-
-    console.log(req.body);
-
-    res.json({
-        success: true,
-        message: "Order received successfully."
-    });
-
-};
-const orderModel = require("../models/orderModel");
-
+// Get Orders for one User
 const getUserOrders = (req, res) => {
 
     const userId = req.params.userId;
@@ -86,4 +70,9 @@ const getUserOrders = (req, res) => {
 
     });
 
+};
+
+module.exports = {
+    placeOrder,
+    getUserOrders
 };
