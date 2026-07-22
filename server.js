@@ -29,11 +29,8 @@ app.use(express.static(__dirname));
 app.use("/api/admin-auth", adminAuthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
-app.get("/api/orders/test", (req, res) => {
-    res.send("SERVER TEST WORKS");
-});
+app.use("/api/orders", orderRoutes);   // <-- ADD THIS
 app.use("/api/admin", adminRoutes);
-
 // Test Route
 app.get("/", (req, res) => {
     res.send("African Keys API is running...");

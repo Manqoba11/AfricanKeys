@@ -1,14 +1,17 @@
-
-console.log("orderRoutes loaded");
 const express = require("express");
 const router = express.Router();
 
+console.log("orderRoutes loaded");
+
 const orderController = require("../controllers/orderController");
 
-console.log("orderController =", orderController);
-console.log("placeOrder =", orderController.placeOrder);
+router.get("/test", (req, res) => {
+    res.send("Order routes work!");
+});
 
 router.post("/", orderController.placeOrder);
+
 router.get("/user/:userId", orderController.getUserOrders);
 
 module.exports = router;
+
