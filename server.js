@@ -13,6 +13,7 @@ const adminAuthRoutes = require("./routes/adminAuthRoutes");
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes"); 
+console.log("orderRoutes =", orderRoutes);
 const adminRoutes = require("./routes/adminRoutes");
 console.log(adminRoutes);
 
