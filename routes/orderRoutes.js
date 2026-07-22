@@ -1,6 +1,4 @@
-router.get("/test", (req, res) => {
-    res.send("Order routes work!");
-});
+
 console.log("orderRoutes loaded");
 const express = require("express");
 const router = express.Router();

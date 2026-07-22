@@ -1,44 +1,85 @@
-// Import the order model.
-//
-// The controller uses the model to talk to MySQL.
-const orderModel = require("../models/orderModel"); //require() is used to import code from another file
+// Import the order model
+const orderModel = require("../models/orderModel");
 
+// =====================================
+// Place a new order
+// =====================================
+const placeOrder = (req, res) => {
 
-// ==================================================
+    const { userId, cart, total } = req.body;
+
+    if (!userId || !cart || cart.length === 0) {
+        return res.status(400).json({
+            message: "Invalid order."
+        });
+    }
+
+    orderModel.createOrder(userId, total, (err, result) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        const orderId = result.insertId;
+
+        let completed = 0;
+
+        cart.forEach(item => {
+
+            orderModel.addOrderItem(
+                orderId,
+                item.id,
+                item.qty,
+                item.price,
+
+                (err) => {
+
+                    if (err) {
+                        return res.status(500).json(err);
+                    }
+
+                    completed++;
+
+                    if (completed === cart.length) {
+
+                        res.json({
+                            message: "Order placed successfully!"
+                        });
+
+                    }
+
+                }
+
+            );
+
+        });
+
+    });
+
+};
+
+// =====================================
 // Get all orders for one user
-// ==================================================
+// =====================================
 const getUserOrders = (req, res) => {
 
     console.log("getUserOrders called");
     console.log(req.params.userId);
-    // Read the user ID from the URL.
-    //
-    // Example:
-    // GET /api/orders/user/2
-    //
-    // req.params.userId = 2
+
     const userId = req.params.userId;
 
-    // Ask the model to get this user's orders.
     orderModel.getOrdersByUser(userId, (err, results) => {
 
-        // If something went wrong...
         if (err) {
-
             return res.status(500).json(err);
-
         }
 
-        // Otherwise send the orders back
-        // to the browser as JSON.
         res.json(results);
 
     });
 
 };
 
-
-// Export the controller functions.
 module.exports = {
     placeOrder,
     getUserOrders
