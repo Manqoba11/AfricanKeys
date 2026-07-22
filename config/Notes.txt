@@ -1,0 +1,5 @@
+What is an API?
+
+API stands for Application Programming Interface.
+
+An API is a way for one program to communicate with another.

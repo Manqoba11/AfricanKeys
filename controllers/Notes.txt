@@ -1,0 +1,16 @@
+Controller receives the browser request
+
+The controller receives the request, asks the model for data, and sends the response back.
+
+Think of the Controller as a waiter in a restaurant 
+Imagine this:
+Customer
+    │
+    ▼
+Waiter (Controller)
+    │
+    ▼
+Chef (Model)
+    │
+    ▼
+Kitchen (Database)

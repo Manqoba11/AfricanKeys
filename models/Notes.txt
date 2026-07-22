@@ -1,0 +1,3 @@
+Models knows how to get data from MySQL.
+
+The model talks directly to the database.
